@@ -1,4 +1,4 @@
-import { Team } from "./team";
+import { Team } from './team';
 
 export type Game = {
   id: number;
@@ -9,14 +9,14 @@ export type Game = {
   team2: Team;
   start_date: Date;
 
-  score_1: number;
-  score_2: number;
+  score_1: number | null;
+  score_2: number | null;
 
   field: string;
-}
+};
 
 export type KOGame = Game & {
   round_id: number;
-  next_game_winner_id: number;
-  next_game_loser_id: number;
-}
+  next_game_winner_id: number | null;
+  next_game_loser_id: number | null;
+};
