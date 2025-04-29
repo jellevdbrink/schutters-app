@@ -1,10 +1,10 @@
-import { Team } from "./team";
+import { Team } from './team';
 
 export type RankingEntry = {
   field: number;
 
   ranking: Ranking[];
-}
+};
 
 export type Ranking = {
   team: Team;
@@ -15,4 +15,4 @@ export type Ranking = {
   loses: number;
   goals: number;
   points: number;
-}
+};
