@@ -1,1 +1,10 @@
 <router-outlet />
+
+<nav class="navbar fixed-bottom bg-primary text-white">
+  <div class="container d-flex justify-content-around">
+    <a routerLink="/toernooien" routerLinkActive="active" class="nav-link text-white"><fa-icon [icon]="faHome"></fa-icon></a>
+    <a routerLink="/" routerLinkActive="active" class="nav-link text-white"><fa-icon [icon]="faBasketball"></fa-icon></a>
+    <a routerLink="/" routerLinkActive="active" class="nav-link text-white"><fa-icon [icon]="faNewspaper"></fa-icon></a>
+    <a routerLink="/" routerLinkActive="active" class="nav-link text-white"><fa-icon [icon]="faUser"></fa-icon></a>
+  </div>
+</nav>
