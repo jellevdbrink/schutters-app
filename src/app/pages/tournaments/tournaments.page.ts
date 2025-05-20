@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Tournament } from '../../models/tournament';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TournamentService } from '../../services/tournament.service';
 import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tournaments',
-  imports: [CommonModule, AsyncPipe],
+  imports: [CommonModule, AsyncPipe, RouterLink],
   templateUrl: './tournaments.page.html',
   styleUrl: './tournaments.page.scss',
 })

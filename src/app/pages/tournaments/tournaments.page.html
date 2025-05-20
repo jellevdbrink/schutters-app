@@ -1,35 +1,8 @@
-<!-- <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Toernooien</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-list *ngIf="tournaments">
-    <ion-item *ngFor="let tournament of tournaments" (click)="setTournament(tournament)">
-      <ion-label>{{tournament.name}}</ion-label>
-      <span slot="end">{{tournament.event_date | date:"HH:mm"}}</span>
-    </ion-item>
-  </ion-list>
-
-  <ion-list *ngIf="!tournaments">
-    <ion-item *ngFor="let tournament of [0, 1, 2, 3]">
-        <ion-label>
-          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-        </ion-label>
-      <span slot="end"><ion-skeleton-text animated style="width: 10%"></ion-skeleton-text></span>
-    </ion-item>
-  </ion-list>
-</ion-content> -->
-
 <div>
   <h1>Tournaments</h1>
   <ul>
-    @for (tournament of tournaments$ | async; track $index) {
-    <li (click)="setTournament(tournament)">{{ tournament.name }}</li>
+    @for (tournament of tournaments$ | async; track tournament.id) {
+    <li><a [routerLink]="['/toernooien', tournament.id]">{{ tournament.name }}</a></li>
     }
   </ul>
 </div>

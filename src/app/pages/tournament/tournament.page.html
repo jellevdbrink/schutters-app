@@ -1,0 +1,16 @@
+<div>
+  @if (tournament$ | async; as tournament) {
+    <h1>{{ tournament.name }}</h1>
+    @if (rounds$ | async; as rounds) {
+      <ul>
+        @for (round of rounds; track round.id) {
+          <li>{{ round.name }} - {{ round.isKo}}</li>
+        }
+      </ul>
+    } @else {
+      <p>This tournament has no rounds yet</p>
+    }
+  } @else {
+    <p>tournament is loading...</p>
+  }
+</div>
