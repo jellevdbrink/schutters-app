@@ -1,0 +1,16 @@
+<ng-container>
+  <h1>Instellingen</h1>
+
+  @if (tournaments$ | async; as tournaments) {
+    <form [formGroup]="settingsForm" (ngSubmit)="saveSettingsForm()">
+      <label for="tournament">Favoriete toernooi:</label>
+      <select id="tournament" formControlName="tournament">
+        @for (tournament of tournaments; track tournament.id) {
+          <option value="{{ tournament.id }}">{{ tournament.name }}</option>
+        }
+      </select>
+
+      <button type="submit">Opslaan</button>
+    </form>
+  }
+</ng-container>
