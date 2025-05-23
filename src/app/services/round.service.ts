@@ -1,18 +1,23 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Round } from '../models/round';
 import { environment } from '../../environment/environment';
 import { map, Observable } from 'rxjs';
 import { Game } from '../models/game';
 import { transformStartDate } from '../../helpers';
-import { RankingEntry } from '../models/ranking';
+import { Poule } from '../models/ranking';
 import { KOBracket } from '../models/ko-bracket';
+import { SettingsService, StorageKeys } from './settings.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoundService {
   private http = inject(HttpClient);
+  private settingsService = inject(SettingsService);
+
+  private _groupRoundId = signal(this.settingsService.getLastRound());
+  public groupRoundId = this._groupRoundId.asReadonly();
 
   constructor() {}
 
@@ -38,8 +43,8 @@ export class RoundService {
       );
   }
 
-  public getRankingEntry(roundId: number): Observable<RankingEntry> {
-    return this.http.get<RankingEntry>(
+  public getPoules(roundId: number): Observable<Poule[]> {
+    return this.http.get<Poule[]>(
       `${environment.api}/rounds/${roundId}/ranking`,
     );
   }
@@ -55,5 +60,14 @@ export class RoundService {
           })),
         ),
       );
+  }
+
+  public setGroupRoundId(roundId: number | null): void {
+    this._groupRoundId.set(roundId);
+    if (roundId === null) {
+      this.settingsService.removeItem(StorageKeys.ROUND);
+    } else {
+      this.settingsService.setItem(StorageKeys.ROUND, roundId.toString());
+    }
   }
 }

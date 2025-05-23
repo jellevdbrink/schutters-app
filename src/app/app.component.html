@@ -1,12 +1,27 @@
+@if (tournament$ | async; as tournament) {
+  <h3>Welkom bij het {{ tournament.name }}</h3>
+}
+
 <div class="main-content">
   <router-outlet />
 </div>
 
 <nav class="navbar fixed-bottom bg-primary text-white">
   <div class="container d-flex justify-content-around">
-    <a routerLink="/home" routerLinkActive="active" class="nav-link text-white"><fa-icon [icon]="faHome"></fa-icon></a>
-    <a routerLink="/" routerLinkActive="active" class="nav-link text-white"><fa-icon [icon]="faBasketball"></fa-icon></a>
-    <a routerLink="/" routerLinkActive="active" class="nav-link text-white"><fa-icon [icon]="faNewspaper"></fa-icon></a>
-    <a routerLink="/instellingen" routerLinkActive="active" class="nav-link text-white"><fa-icon [icon]="faSliders"></fa-icon></a>
+    <a routerLink="/home" routerLinkActive="active" class="nav-link text-white"
+      ><fa-icon [icon]="faHome"></fa-icon
+    ></a>
+    <a routerLink="/groepsfase" routerLinkActive="active" class="nav-link text-white"
+      ><fa-icon [icon]="faUserGroup"></fa-icon
+    ></a>
+    <a routerLink="/ko" routerLinkActive="active" class="nav-link text-white"
+      ><fa-icon [icon]="faTrophy"></fa-icon
+    ></a>
+    <a
+      routerLink="/instellingen"
+      routerLinkActive="active"
+      class="nav-link text-white"
+      ><fa-icon [icon]="faSliders"></fa-icon
+    ></a>
   </div>
 </nav>

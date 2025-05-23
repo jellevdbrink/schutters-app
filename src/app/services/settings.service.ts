@@ -3,21 +3,29 @@ import { environment } from '../../environment/environment';
 
 export enum StorageKeys {
   TOURNAMENT = 'tournament',
+  ROUND = 'round',
   TEAM = 'team',
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SettingsService {
-  constructor() { }
+  constructor() {}
 
   private getItem(key: StorageKeys): string | null {
     return localStorage.getItem(key);
   }
 
-  public getTournamentSetting(): string {
-    return this.getItem(StorageKeys.TOURNAMENT) ?? environment.defaultTournament;
+  public getTournamentSetting(): number {
+    return +(
+      this.getItem(StorageKeys.TOURNAMENT) ?? environment.defaultTournament
+    );
+  }
+
+  public getLastRound(): number | null {
+    const lastRound = this.getItem(StorageKeys.ROUND);
+    return lastRound ? +lastRound : null;
   }
 
   public setItem(key: StorageKeys, value: string): void {

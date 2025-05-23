@@ -1,12 +1,12 @@
 import { Team } from './team';
 
-export type RankingEntry = {
-  field: number;
+export type Poule = {
+  field: number; // moet nog + 1!!!!!!
 
-  ranking: Ranking[];
+  ranking: RankingEntry[];
 };
 
-export type Ranking = {
+export type RankingEntry = {
   team: Team;
   team_number: number;
 

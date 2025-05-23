@@ -19,12 +19,12 @@ export class TournamentPage {
   private settingsService = inject(SettingsService);
 
   protected tournament$!: Observable<Tournament>;
-  protected rounds$!: Observable<Round[]>
+  protected rounds$!: Observable<Round[]>;
 
   @Input({ required: true })
   set tournamentId(tournamentId: number | undefined) {
     if (!tournamentId) {
-      tournamentId = +this.settingsService.getTournamentSetting();
+      tournamentId = this.settingsService.getTournamentSetting();
     }
     this.tournament$ = this.tournamentService.getTournament(tournamentId);
     this.rounds$ = this.roundService.getRounds(tournamentId);
