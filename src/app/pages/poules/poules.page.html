@@ -1,59 +1,34 @@
 <ng-container>
-  <ul>
-    @for (round of rounds$ | async; track round.id) {
-    <li (click)="setRound(round.id)">{{ round.name }}</li>
-    }
-  </ul>
-  <ul>
-    <li (click)="showGames.set(false)">Standen</li>
-    <li (click)="showGames.set(true)">Wedstrijden</li>
-  </ul>
+  <app-round-selector></app-round-selector>
 
-  @if (!showGames()) {
-    <div>
-      <h1>Poules</h1>
-      @for (poule of poules$ | async; track poule.field) {
-      <h4>Veld {{ poule.field + 1 }}</h4>
-      <table>
-        <tr>
-          <th>Nummer</th>
-          <th>Naam 1</th>
-          <th>Naam 2</th>
-          <th>Winst</th>
-          <th>Gelijk</th>
-          <th>Verlies</th>
-          <th>Punten</th>
-        </tr>
-        @for (team of poule.ranking; track team.team_number) {
-        <tr>
-          <td>{{ team.team_number }}</td>
-          <td>{{ team.team.player_1 }}</td>
-          <td>{{ team.team.player_2 }}</td>
-          <td>{{ team.wins }}</td>
-          <td>{{ team.draws }}</td>
-          <td>{{ team.loses }}</td>
-          <td>{{ team.points }}</td>
-        </tr>
-        }
-      </table>
-      } @empty {
-      <p>Selecteer een ronde om de poulestanden te zien.</p>
+  <div>
+    <h1>Standen</h1>
+    @for (poule of poules$ | async; track poule.field) {
+    <h4>Veld {{ poule.field + 1 }}</h4>
+    <table>
+      <tr>
+        <th>Nummer</th>
+        <th>Naam 1</th>
+        <th>Naam 2</th>
+        <th>Winst</th>
+        <th>Gelijk</th>
+        <th>Verlies</th>
+        <th>Punten</th>
+      </tr>
+      @for (team of poule.ranking; track team.team_number) {
+      <tr>
+        <td>{{ team.team_number }}</td>
+        <td>{{ team.team.player_1 }}</td>
+        <td>{{ team.team.player_2 }}</td>
+        <td>{{ team.wins }}</td>
+        <td>{{ team.draws }}</td>
+        <td>{{ team.loses }}</td>
+        <td>{{ team.points }}</td>
+      </tr>
       }
-    </div>
-  } @else {
-    <div>
-      <table>
-        @for (game of games$ | async; track game.id) {
-          <tr>
-            <td>{{ game.field }}</td>
-            <td>{{ game.team1.player_1 }}</td>
-            <td>{{ game.score_1 }}</td>
-            <td>{{ game.score_2 }}</td>
-            <td>{{ game.team2.player_1 }}</td>
-            <td>{{ game.start_date }}</td>
-          </tr>
-        }
-      </table>
-    </div>
-  }
+    </table>
+    } @empty {
+    <p>Selecteer een ronde om de poulestanden te zien.</p>
+    }
+  </div>
 </ng-container>

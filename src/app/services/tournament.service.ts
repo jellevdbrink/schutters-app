@@ -15,7 +15,9 @@ export class TournamentService {
 
   public getTournaments(): Observable<Tournament[]> {
     return this.http
-      .get<Tournament[]>(`${environment.api}/organisations/1`)
+      .get<
+        Tournament[]
+      >(`${environment.api}/organisations/${environment.organisation}`)
       .pipe(map((tournaments) => tournaments.map(transformEventDate)));
   }
 

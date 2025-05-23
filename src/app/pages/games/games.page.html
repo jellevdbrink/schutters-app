@@ -1,0 +1,16 @@
+<div>
+  <app-round-selector></app-round-selector>
+
+  <table>
+    @for (game of games$ | async; track game.id) {
+    <tr>
+      <td>{{ game.field }}</td>
+      <td>{{ game.team1.player_1 }}</td>
+      <td>{{ game.score_1 }}</td>
+      <td>{{ game.score_2 }}</td>
+      <td>{{ game.team2.player_1 }}</td>
+      <td>{{ game.start_date | date:'HH:mm' }}</td>
+    </tr>
+    }
+  </table>
+</div>

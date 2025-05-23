@@ -1,0 +1,5 @@
+<ul>
+  @for (round of rounds$ | async; track round.id) {
+    <li (click)="setRound(round.id)">{{ round.name }}</li>
+  }
+</ul>
