@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SettingsService } from '../../services/settings.service';
 import { RoundService } from '../../services/round.service';
-import { tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'app-round-selector',
@@ -14,11 +14,19 @@ export class RoundSelectorComponent {
   private settingsService = inject(SettingsService);
   private roundService = inject(RoundService);
 
+  public forKo = input.required<boolean>();
+
   protected rounds$ = this.roundService
     .getRounds(this.settingsService.getTournamentSetting())
     .pipe(
+      map((rounds) => {
+        if (this.forKo()) {
+          return rounds.filter((round) => round.isKo);
+        }
+        return rounds.filter((round) => !round.isKo);
+      }),
       tap((rounds) => {
-        if (this.roundService.groupRoundId() == null) {
+        if (!this.forKo() && this.roundService.groupRoundId() == null) {
           const lastRound = rounds.at(-1);
           if (lastRound) this.roundService.setGroupRoundId(lastRound.id);
         }
@@ -26,6 +34,13 @@ export class RoundSelectorComponent {
     );
 
   protected setRound(roundId: number): void {
-    this.roundService.setGroupRoundId(roundId);
+    if (this.forKo()) {
+    } else {
+      this.roundService.setGroupRoundId(roundId);
+    }
+  }
+
+  protected getRound(): number | null {
+    return this.roundService.groupRoundId();
   }
 }

@@ -1,5 +1,5 @@
-<div>
-  <app-round-selector></app-round-selector>
+<ng-container>
+  <app-round-selector [forKo]="false"></app-round-selector>
 
   <table>
     @for (game of games$ | async; track game.id) {
@@ -13,4 +13,4 @@
     </tr>
     }
   </table>
-</div>
+</ng-container>

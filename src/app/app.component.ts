@@ -10,7 +10,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { TournamentService } from './services/tournament.service';
 import { SettingsService } from './services/settings.service';
-import { AsyncPipe } from '@angular/common';
+import { Title } from '@angular/platform-browser';
+// import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ import { AsyncPipe } from '@angular/common';
     RouterLink,
     RouterLinkActive,
     FontAwesomeModule,
-    AsyncPipe,
+    // AsyncPipe,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -27,6 +28,7 @@ import { AsyncPipe } from '@angular/common';
 export class AppComponent {
   private tournamentService = inject(TournamentService);
   private settingsService = inject(SettingsService);
+  private titleService = inject(Title);
 
   protected faHome = faHome;
   protected faUserGroup = faUserGroup;
@@ -38,5 +40,7 @@ export class AppComponent {
     this.settingsService.getTournamentSetting(),
   );
 
-  title = 'schutters-app';
+  protected getTitle(): string {
+    return this.titleService.getTitle();
+  }
 }

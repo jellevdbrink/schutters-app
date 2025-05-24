@@ -1,36 +1,40 @@
-@if (tournament$ | async; as tournament) {
-  <h3>Welkom bij het {{ tournament.name }}</h3>
-}
+<ng-container>
+  <div class="content container overflow-scroll">
+    <div class="title align-items-center d-flex fixed-top bg-primary">
+      <img
+        class="logo float-start me-2"
+        src="https://schutterstoernooi.nl/wp-content/uploads/2017/06/Logo-Twents-Open-Schutterstoernooi1.png"
+        alt="Schutterstoernooi logo"
+      />
+      <h1 class="text-white">{{ getTitle() }}</h1>
+    </div>
 
-<div class="main-content">
-  <router-outlet />
-</div>
-
-<nav class="navbar fixed-bottom bg-primary text-white">
-  <div class="container d-flex justify-content-around">
-    <a routerLink="/home" routerLinkActive="active" class="nav-link text-white"
-      ><fa-icon [icon]="faHome"></fa-icon
-    ></a>
-    <a
-      routerLink="/standen"
-      routerLinkActive="active"
-      class="nav-link text-white"
-      ><fa-icon [icon]="faUserGroup"></fa-icon
-    ></a>
-    <a
-      routerLink="/wedstrijden"
-      routerLinkActive="active"
-      class="nav-link text-white"
-      ><fa-icon [icon]="faCalendar"></fa-icon
-    ></a>
-    <a routerLink="/ko" routerLinkActive="active" class="nav-link text-white"
-      ><fa-icon [icon]="faTrophy"></fa-icon
-    ></a>
-    <a
-      routerLink="/instellingen"
-      routerLinkActive="active"
-      class="nav-link text-white"
-      ><fa-icon [icon]="faSliders"></fa-icon
-    ></a>
+    <router-outlet />
   </div>
-</nav>
+
+  <nav class="navbar fixed-bottom bg-primary text-white">
+    <div class="container-fluid justify-content-around">
+      <a routerLink="/home" routerLinkActive="text-black" class="nav-link"
+        ><fa-icon [icon]="faHome"></fa-icon
+      ></a>
+      <a routerLink="/standen" routerLinkActive="text-black" class="nav-link"
+        ><fa-icon [icon]="faUserGroup"></fa-icon
+      ></a>
+      <a
+        routerLink="/wedstrijden"
+        routerLinkActive="text-black"
+        class="nav-link"
+        ><fa-icon [icon]="faCalendar"></fa-icon
+      ></a>
+      <a routerLink="/ko" routerLinkActive="text-black" class="nav-link"
+        ><fa-icon [icon]="faTrophy"></fa-icon
+      ></a>
+      <a
+        routerLink="/instellingen"
+        routerLinkActive="text-black"
+        class="nav-link"
+        ><fa-icon [icon]="faSliders"></fa-icon
+      ></a>
+    </div>
+  </nav>
+</ng-container>

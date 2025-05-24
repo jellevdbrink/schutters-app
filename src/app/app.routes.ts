@@ -6,17 +6,21 @@ import { PoulesPage } from './pages/poules/poules.page';
 import { GamesPage } from './pages/games/games.page';
 
 export const routes: Routes = [
-  { path: 'toernooien/:tournamentId', component: TournamentPage },
-  { path: 'toernooien', component: TournamentsPage },
+  {
+    path: 'toernooien/:tournamentId',
+    title: 'Toernooi',
+    component: TournamentPage,
+  },
+  { path: 'toernooien', title: 'Toernooien', component: TournamentsPage },
 
-  { path: 'standen', component: PoulesPage },
+  { path: 'standen', title: 'Standen', component: PoulesPage },
   // { path: 'rondes/:roundId/stand', component: },
   // { path: 'rondes/:roundId/wedstrijden', component: },
 
-  { path: 'wedstrijden', component: GamesPage },
+  { path: 'wedstrijden', title: 'Wedstrijden', component: GamesPage },
 
-  { path: 'instellingen', component: SettingsPage },
+  { path: 'instellingen', title: 'Instellingen', component: SettingsPage },
 
-  { path: 'home', component: TournamentPage },
+  { path: 'home', title: 'Home', component: TournamentPage },
   { path: '**', redirectTo: '/home' },
 ];
