@@ -1,0 +1,31 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">Filter wedstrijden</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="close()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="filterForm">
+      <div class="form-check form-switch">
+        <input type="checkbox" id="showPastGames" class="form-check-input" role="switch" formControlName="showPastGames">
+        <label for="showPastGames" class="form-check-label">Gespeelde wedstrijden</label>
+      </div>
+      <div class="form-check form-switch">
+        <input type="checkbox" id="showFutureGames" class="form-check-input" role="switch" formControlName="showFutureGames">
+        <label for="showFutureGames" class="form-check-label">Toekomstige wedstrijden</label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="close()">
+      Annuleren
+    </button>
+    <button type="button" class="btn btn-primary" (click)="save()">
+      Opslaan
+    </button>
+  </div>
+</div>

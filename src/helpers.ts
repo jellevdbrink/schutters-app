@@ -1,3 +1,5 @@
+import { FormControl, FormGroup } from "@angular/forms";
+
 export function transformStartDate<T extends { start_date: Date }>(res: T): T {
   return {
     ...res,
@@ -11,3 +13,7 @@ export function transformEventDate<T extends { event_date: Date }>(res: T): T {
     event_date: new Date(res.event_date),
   };
 }
+
+export type FormOf<Type> = FormGroup<{
+  [Property in keyof Type]: FormControl<Type[Property]>;
+}>;

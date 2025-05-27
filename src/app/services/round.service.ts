@@ -67,7 +67,7 @@ export class RoundService {
     if (roundId === null) {
       this.settingsService.removeItem(StorageKeys.ROUND);
     } else {
-      this.settingsService.setItem(StorageKeys.ROUND, roundId.toString());
+      this.settingsService.setItem(StorageKeys.ROUND, roundId);
     }
   }
 }

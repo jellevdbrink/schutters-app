@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environment/environment';
+import { GameFilters } from '../pages/games/filter-modal/filter-modal.component';
 
 export enum StorageKeys {
   TOURNAMENT = 'tournament',
   ROUND = 'round',
   TEAM = 'team',
+  GAMEFILTERS = 'gameFilters',
 }
 
 @Injectable({
@@ -33,8 +35,13 @@ export class SettingsService {
     return team ? +team : null;
   }
 
-  public setItem(key: StorageKeys, value: string): void {
-    localStorage.setItem(key, value);
+  public getGameFilters(): GameFilters | null {
+    const gameFilters = this.getItem(StorageKeys.GAMEFILTERS);
+    return gameFilters ? JSON.parse(gameFilters) : null;
+  }
+
+  public setItem(key: StorageKeys, value: string | number | boolean): void {
+    localStorage.setItem(key, value.toString());
   }
 
   public removeItem(key: StorageKeys): void {

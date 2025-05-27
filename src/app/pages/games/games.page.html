@@ -1,5 +1,16 @@
 <ng-container>
-  <app-round-selector [forKo]="false"></app-round-selector>
+  <div class="d-flex align-items-center">
+    <div class="flex-grow-1 overflow-auto me-2">
+      <app-round-selector [forKo]="false"></app-round-selector>
+    </div>
+    <a (click)="openFilterModal()"
+      ><fa-icon
+        class="text-primary flex-shrink-0"
+        size="xl"
+        [icon]="faFilter"
+      ></fa-icon
+    ></a>
+  </div>
 
   <table>
     @for (game of games$ | async; track game.id) {

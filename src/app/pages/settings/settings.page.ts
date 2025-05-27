@@ -46,13 +46,13 @@ export class SettingsPage {
     const formValue = this.settingsForm.getRawValue();
     this.settingsService.setItem(
       StorageKeys.TOURNAMENT,
-      formValue.tournament.toString(),
+      formValue.tournament,
     );
 
     if (formValue.team === null) {
       this.settingsService.removeItem(StorageKeys.TEAM);
     } else {
-      this.settingsService.setItem(StorageKeys.TEAM, formValue.team.toString());
+      this.settingsService.setItem(StorageKeys.TEAM, formValue.team);
     }
 
     this.toastService.show({
