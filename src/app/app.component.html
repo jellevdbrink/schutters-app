@@ -1,5 +1,5 @@
 <ng-container>
-  <div class="content container overflow-scroll">
+  <div class="container">
     <div class="title align-items-center d-flex fixed-top bg-primary">
       <img
         class="logo float-start me-2"
@@ -8,32 +8,36 @@
       />
       <h1 class="text-white">{{ getTitle() }}</h1>
     </div>
+  </div>
 
+  <div class="container content">
     <router-outlet />
   </div>
+
+  <app-toasts></app-toasts>
 
   <nav class="navbar fixed-bottom bg-primary text-white">
     <div class="container-fluid justify-content-around">
       <a routerLink="/home" routerLinkActive="text-black" class="nav-link"
-        ><fa-icon [icon]="faHome"></fa-icon
+        ><fa-icon size="xl" [icon]="faHome"></fa-icon
       ></a>
       <a routerLink="/standen" routerLinkActive="text-black" class="nav-link"
-        ><fa-icon [icon]="faUserGroup"></fa-icon
+        ><fa-icon size="xl" [icon]="faUserGroup"></fa-icon
       ></a>
       <a
         routerLink="/wedstrijden"
         routerLinkActive="text-black"
         class="nav-link"
-        ><fa-icon [icon]="faCalendar"></fa-icon
+        ><fa-icon size="xl" [icon]="faCalendar"></fa-icon
       ></a>
       <a routerLink="/ko" routerLinkActive="text-black" class="nav-link"
-        ><fa-icon [icon]="faTrophy"></fa-icon
+        ><fa-icon size="xl" [icon]="faTrophy"></fa-icon
       ></a>
       <a
         routerLink="/instellingen"
         routerLinkActive="text-black"
         class="nav-link"
-        ><fa-icon [icon]="faSliders"></fa-icon
+        ><fa-icon size="xl" [icon]="faSliders"></fa-icon
       ></a>
     </div>
   </nav>

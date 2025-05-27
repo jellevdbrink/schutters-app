@@ -11,6 +11,7 @@ import {
 import { TournamentService } from './services/tournament.service';
 import { SettingsService } from './services/settings.service';
 import { Title } from '@angular/platform-browser';
+import { ToastsContainer } from './toasts-container.component';
 // import { AsyncPipe } from '@angular/common';
 
 @Component({
@@ -20,6 +21,7 @@ import { Title } from '@angular/platform-browser';
     RouterLink,
     RouterLinkActive,
     FontAwesomeModule,
+    ToastsContainer
     // AsyncPipe,
   ],
   templateUrl: './app.component.html',
