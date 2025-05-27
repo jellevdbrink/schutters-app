@@ -1,37 +1,14 @@
 <ng-container>
   <app-round-selector [forKo]="false"></app-round-selector>
+  @if (myPoule$ | async; as myPoule) {
+    <div class="py-1 px-2 border border-success-subtle border-2 rounded-3 mb-2">
+      <app-poule [poule]="myPoule"></app-poule>
+    </div>
+  }
 
   <div>
-    @for (poule of poules$ | async; track poule.field) {
-    <h4>Veld {{ poule.field + 1 }}</h4>
-    <table class="table align-middle">
-      <thead>
-        <tr>
-          <th>Nr.</th>
-          <th>Namen</th>
-          <th>W</th>
-          <th>G</th>
-          <th>V</th>
-          <th>D</th>
-          <th>P</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (team of poule.ranking; track team.team_number) {
-        <tr>
-          <td>{{ team.team_number }}</td>
-          <td>{{ team.team.player_1 }} & {{ team.team.player_2 }}</td>
-          <td>{{ team.wins }}</td>
-          <td>{{ team.draws }}</td>
-          <td>{{ team.loses }}</td>
-          <td>{{ team.goals }}</td>
-          <td>{{ team.points }}</td>
-        </tr>
-        }
-      </tbody>
-    </table>
-    } @empty {
-    <p>Selecteer een ronde om de poulestanden te zien.</p>
+    @for (poule of poules$| async; track poule.field) {
+    <app-poule [poule]="poule"></app-poule>
     }
   </div>
 </ng-container>

@@ -1,0 +1,29 @@
+<ng-container>
+  <h4>Veld {{ poule().field + 1 }}</h4>
+  <table class="table align-middle">
+    <thead>
+      <tr>
+        <th>Nr.</th>
+        <th>Namen</th>
+        <th>W</th>
+        <th>G</th>
+        <th>V</th>
+        <th>D</th>
+        <th>P</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (team of poule().ranking; track team.team_number) {
+        <tr>
+          <td>{{ team.team_number }}</td>
+          <td>{{ team.team.player_1 }} & {{ team.team.player_2 }}</td>
+          <td>{{ team.wins }}</td>
+          <td>{{ team.draws }}</td>
+          <td>{{ team.loses }}</td>
+          <td>{{ team.goals }}</td>
+          <td>{{ team.points }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</ng-container>

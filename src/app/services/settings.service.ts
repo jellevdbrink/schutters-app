@@ -28,6 +28,11 @@ export class SettingsService {
     return lastRound ? +lastRound : null;
   }
 
+  public getTeamSetting(): number | null {
+    const team = this.getItem(StorageKeys.TEAM);
+    return team ? +team : null;
+  }
+
   public setItem(key: StorageKeys, value: string): void {
     localStorage.setItem(key, value);
   }

@@ -1,14 +1,41 @@
 <ng-container>
-  @if (tournaments$ | async; as tournaments) {
-  <form [formGroup]="settingsForm" (ngSubmit)="saveSettingsForm()">
-    <label for="tournament">Favoriete toernooi:</label>
-    <select id="tournament" formControlName="tournament">
-      @for (tournament of tournaments; track tournament.id) {
-      <option value="{{ tournament.id }}">{{ tournament.name }}</option>
-      }
-    </select>
+  <form [formGroup]="settingsForm" class="">
+    <div class="row align-items-center my-2">
+      <div class="col-auto">
+        <label for="tournament" class="form-label">Mijn toernooi</label>
+      </div>
 
-    <button type="submit">Opslaan</button>
+      <div class="col-auto">
+        <select
+          id="tournament"
+          formControlName="tournament"
+          class="form-select"
+        >
+          @for (tournament of tournaments$ | async; track tournament.id) {
+          <option value="{{ tournament.id }}">{{ tournament.name }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <div class="my-2">
+      <label for="team" class="form-label">Mijn team</label>
+      <select id="team" formControlName="team" class="form-select">
+        <option [ngValue]="null">Geen team</option>
+        @for (team of teams$ | async; track team.id) {
+        <option [ngValue]="team.id">
+          {{ team.team_number }}. {{ team.player_1 }} & {{ team.player_2 }}
+        </option>
+        }
+      </select>
+    </div>
+
+    <button
+      [disabled]="settingsForm.invalid"
+      (click)="saveSettingsForm()"
+      class="btn btn-primary mt-2"
+    >
+      Opslaan
+    </button>
   </form>
-  }
 </ng-container>
