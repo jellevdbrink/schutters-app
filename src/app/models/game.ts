@@ -16,6 +16,9 @@ export type Game = {
 };
 
 export type KOGame = Game & {
+  team1: Team | null;
+  team2: Team | null;
+
   round_id: number;
   next_game_winner_id: number | null;
   next_game_loser_id: number | null;

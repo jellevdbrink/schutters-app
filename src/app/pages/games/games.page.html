@@ -1,18 +1,23 @@
 <ng-container>
   <div class="d-flex align-items-center">
     <div class="flex-grow-1 overflow-auto me-2">
-      <app-round-selector [forKo]="false"></app-round-selector>
+      <app-round-selector></app-round-selector>
     </div>
-    <a (click)="openFilterModal()"
+    <!-- <a (click)="openFilterModal()"
       ><fa-icon
         class="text-primary flex-shrink-0"
         size="xl"
         [icon]="faFilter"
       ></fa-icon
-    ></a>
+    ></a> -->
   </div>
 
+  @if (games$ | async; as games) {
   <div>
-    <app-game-list [gameSeries]="(games$ | async) ?? []"></app-game-list>
+    <app-game-list
+      [gameSeries]="games"
+      [koRoundNaming]="!!activeRound()?.isKo"
+    ></app-game-list>
   </div>
+  }
 </ng-container>

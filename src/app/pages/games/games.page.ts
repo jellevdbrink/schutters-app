@@ -26,8 +26,9 @@ export class GamesPage {
   private modalService = inject(NgbModal);
 
   protected faFilter = faFilter;
+  protected activeRound = this.roundService.activeRound;
 
-  protected games$ = toObservable(this.roundService.activeRound).pipe(
+  protected games$ = toObservable(this.activeRound).pipe(
     switchMap((round) =>
       round ? this.roundService.getGames(round.id) : of([]),
     ),

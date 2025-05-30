@@ -3,7 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { Round } from '../models/round';
 import { environment } from '../../environment/environment';
 import { map, Observable } from 'rxjs';
-import { Game } from '../models/game';
+import { Game, KOGame } from '../models/game';
 import { transformStartDate } from '../../helpers';
 import { Poule } from '../models/ranking';
 import { KOBracket } from '../models/ko-bracket';
@@ -33,9 +33,9 @@ export class RoundService {
       .pipe(map(transformStartDate));
   }
 
-  public getGames(roundId: number): Observable<Game[][]> {
+  public getGames<T extends Game | KOGame>(roundId: number): Observable<T[][]> {
     return this.http
-      .get<Game[][]>(`${environment.api}/rounds/${roundId}/games`)
+      .get<T[][]>(`${environment.api}/rounds/${roundId}/games`)
       .pipe(
         map((gameSeries) =>
           gameSeries.map((games) => games.map(transformStartDate)),

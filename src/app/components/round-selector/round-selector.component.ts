@@ -15,19 +15,22 @@ export class RoundSelectorComponent {
   private settingsService = inject(SettingsService);
   private roundService = inject(RoundService);
 
-  public forKo = input.required<boolean>();
+  public hideGroup = input(false);
+  public hideKo = input(false);
 
   protected rounds$ = this.roundService
     .getRounds(this.settingsService.getTournamentSetting())
     .pipe(
-      map((rounds) => {
-        if (this.forKo()) {
-          return rounds.filter((round) => round.isKo);
-        }
-        return rounds.filter((round) => !round.isKo);
-      }),
+      map((rounds) =>
+        rounds.filter((round) => {
+          if (this.hideKo() && round.isKo) return false;
+          if (this.hideGroup() && !round.isKo) return false;
+          return true;
+        }),
+      ),
       tap((rounds) => {
-        if (!this.forKo() && this.roundService.activeRound() == null) {
+        // if (!this.forKo() && this.roundService.activeRound() == null) {
+        if (this.roundService.activeRound() == null) {
           const lastRound = rounds.at(-1);
           if (lastRound) this.roundService.setActiveRound(lastRound);
         }
@@ -35,10 +38,10 @@ export class RoundSelectorComponent {
     );
 
   protected setRound(round: Round): void {
-    if (this.forKo()) {
-    } else {
-      this.roundService.setActiveRound(round);
-    }
+    // if (this.forKo()) {
+    // } else {
+    this.roundService.setActiveRound(round);
+    // }
   }
 
   protected getRound(): Round | null {
