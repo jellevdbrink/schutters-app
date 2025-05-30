@@ -28,7 +28,6 @@ export class GameListComponent {
         filter((gs) => !!gs.length),
         take(1),
         tap((gameSeries) => {
-          console.log('1')
           const index = gameSeries.findIndex((games) =>
             games.every(
               (game) => game.score_1 === null && game.score_2 === null,
@@ -36,7 +35,6 @@ export class GameListComponent {
           );
           if (index >= 0) {
             this.activePlayingRound.set(index + 1);
-            document.getElementById(`playing-round-${index + 1}`)?.scrollIntoView();
           }
         }),
       )
@@ -46,7 +44,14 @@ export class GameListComponent {
   protected playingRoundIds = computed(() =>
     this.gameSeries().map((games, index) => index + 1),
   );
+
   protected selectedGames = computed(
     () => this.gameSeries()[this.activePlayingRound() - 1],
+  );
+
+  protected showScoreColumn = computed(() =>
+    this.selectedGames()?.some(
+      (game) => game.score_1 !== null || game.score_2 !== null,
+    ),
   );
 }

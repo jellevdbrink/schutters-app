@@ -13,16 +13,31 @@
     }
   </div>
 
-  <table class="mt-1">
-    @for (game of selectedGames(); track game.id) {
+  @let showScore = showScoreColumn();
+  <table class="table table-sm mt-1">
+    <thead>
       <tr>
-        <td>{{ game.field }}</td>
-        <td>{{ game.team1.player_1 }}</td>
-        <td>{{ game.score_1 }}</td>
-        <td>{{ game.score_2 }}</td>
-        <td>{{ game.team2.player_1 }}</td>
-        <td>{{ game.start_date | date: "HH:mm" }}</td>
+        <th>Veld</th>
+        <th>Team 1</th>
+        @if (showScore) {
+          <th></th>
+        }
+        <th>Team 2</th>
+        <th>Tijd</th>
       </tr>
-    }
+    </thead>
+    <tbody class="table-group-divider">
+      @for (game of selectedGames(); track game.id) {
+        <tr>
+          <td>{{ game.field }}</td>
+          <td>{{ game.team1.player_1 }} & {{ game.team1.player_2 }}</td>
+          @if (showScore) {
+            <td class="text-nowrap">{{ game.score_1 }}-{{ game.score_2 }}</td>
+          }
+          <td>{{ game.team2.player_1 }} & {{ game.team2.player_2 }}</td>
+          <td>{{ game.start_date | date: "HH:mm" }}</td>
+        </tr>
+      }
+    </tbody>
   </table>
 </ng-container>
