@@ -2,16 +2,22 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoundService } from '../../services/round.service';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { switchMap, of, map } from 'rxjs';
+import { switchMap, of } from 'rxjs';
 import { RoundSelectorComponent } from '../../components/round-selector/round-selector.component';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FilterModalComponent } from './filter-modal/filter-modal.component';
+import { GameListComponent } from './game-list/game-list.component';
 
 @Component({
   selector: 'app-games',
-  imports: [CommonModule, FontAwesomeModule, RoundSelectorComponent],
+  imports: [
+    CommonModule,
+    FontAwesomeModule,
+    RoundSelectorComponent,
+    GameListComponent,
+  ],
   templateUrl: './games.page.html',
   styleUrl: './games.page.scss',
 })
@@ -21,9 +27,9 @@ export class GamesPage {
 
   protected faFilter = faFilter;
 
-  protected games$ = toObservable(this.roundService.groupRoundId).pipe(
-    switchMap((roundId) =>
-      roundId ? this.roundService.getGames(roundId) : of([]),
+  protected games$ = toObservable(this.roundService.activeRound).pipe(
+    switchMap((round) =>
+      round ? this.roundService.getGames(round.id) : of([]),
     ),
   );
 

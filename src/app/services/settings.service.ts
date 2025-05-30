@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environment/environment';
 import { GameFilters } from '../pages/games/filter-modal/filter-modal.component';
+import { Round } from '../models/round';
 
 export enum StorageKeys {
   TOURNAMENT = 'tournament',
@@ -25,9 +26,9 @@ export class SettingsService {
     );
   }
 
-  public getLastRound(): number | null {
-    const lastRound = this.getItem(StorageKeys.ROUND);
-    return lastRound ? +lastRound : null;
+  public getActiveRound(): Round | null {
+    const activeRound = this.getItem(StorageKeys.ROUND);
+    return activeRound ? JSON.parse(activeRound) : null;
   }
 
   public getTeamSetting(): number | null {

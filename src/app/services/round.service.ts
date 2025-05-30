@@ -16,8 +16,8 @@ export class RoundService {
   private http = inject(HttpClient);
   private settingsService = inject(SettingsService);
 
-  private _groupRoundId = signal(this.settingsService.getLastRound());
-  public groupRoundId = this._groupRoundId.asReadonly();
+  private _activeRound = signal(this.settingsService.getActiveRound());
+  public activeRound = this._activeRound.asReadonly();
 
   constructor() {}
 
@@ -33,12 +33,12 @@ export class RoundService {
       .pipe(map(transformStartDate));
   }
 
-  public getGames(roundId: number): Observable<Game[]> {
+  public getGames(roundId: number): Observable<Game[][]> {
     return this.http
       .get<Game[][]>(`${environment.api}/rounds/${roundId}/games`)
       .pipe(
         map((gameSeries) =>
-          gameSeries.flatMap((games) => games.map(transformStartDate)),
+          gameSeries.map((games) => games.map(transformStartDate)),
         ),
       );
   }
@@ -62,12 +62,12 @@ export class RoundService {
       );
   }
 
-  public setGroupRoundId(roundId: number | null): void {
-    this._groupRoundId.set(roundId);
-    if (roundId === null) {
+  public setActiveRound(round: Round | null): void {
+    this._activeRound.set(round);
+    if (round === null) {
       this.settingsService.removeItem(StorageKeys.ROUND);
     } else {
-      this.settingsService.setItem(StorageKeys.ROUND, roundId);
+      this.settingsService.setItem(StorageKeys.ROUND, JSON.stringify(round));
     }
   }
 }

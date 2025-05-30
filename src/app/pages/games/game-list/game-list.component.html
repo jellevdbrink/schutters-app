@@ -1,0 +1,28 @@
+<ng-container>
+  <div class="d-flex flex-nowrap overflow-scroll mb-1">
+    @for (playingRound of playingRoundIds(); track $index) {
+      <a (click)="activePlayingRound.set(playingRound)"
+        ><span
+          class="badge rounded-pill text-bg-{{
+            activePlayingRound() === playingRound ? 'primary' : 'secondary'
+          }} p-2 me-1"
+          id="playing-round-{{ playingRound }}"
+          >Ronde {{ playingRound }}</span
+        ></a
+      >
+    }
+  </div>
+
+  <table class="mt-1">
+    @for (game of selectedGames(); track game.id) {
+      <tr>
+        <td>{{ game.field }}</td>
+        <td>{{ game.team1.player_1 }}</td>
+        <td>{{ game.score_1 }}</td>
+        <td>{{ game.score_2 }}</td>
+        <td>{{ game.team2.player_1 }}</td>
+        <td>{{ game.start_date | date: "HH:mm" }}</td>
+      </tr>
+    }
+  </table>
+</ng-container>

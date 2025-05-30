@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SettingsService } from '../../services/settings.service';
 import { RoundService } from '../../services/round.service';
 import { map, tap } from 'rxjs';
+import { Round } from '../../models/round';
 
 @Component({
   selector: 'app-round-selector',
@@ -26,21 +27,21 @@ export class RoundSelectorComponent {
         return rounds.filter((round) => !round.isKo);
       }),
       tap((rounds) => {
-        if (!this.forKo() && this.roundService.groupRoundId() == null) {
+        if (!this.forKo() && this.roundService.activeRound() == null) {
           const lastRound = rounds.at(-1);
-          if (lastRound) this.roundService.setGroupRoundId(lastRound.id);
+          if (lastRound) this.roundService.setActiveRound(lastRound);
         }
       }),
     );
 
-  protected setRound(roundId: number): void {
+  protected setRound(round: Round): void {
     if (this.forKo()) {
     } else {
-      this.roundService.setGroupRoundId(roundId);
+      this.roundService.setActiveRound(round);
     }
   }
 
-  protected getRound(): number | null {
-    return this.roundService.groupRoundId();
+  protected getRound(): Round | null {
+    return this.roundService.activeRound();
   }
 }

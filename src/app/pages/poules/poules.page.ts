@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoundService } from '../../services/round.service';
-import { toObservable } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { switchMap, of, tap, map } from 'rxjs';
 import { RoundSelectorComponent } from '../../components/round-selector/round-selector.component';
 import { PouleComponent } from '../../components/poule/poule.component';
@@ -17,9 +17,9 @@ export class PoulesPage {
   private roundService = inject(RoundService);
   private settingsService = inject(SettingsService);
 
-  protected poules$ = toObservable(this.roundService.groupRoundId).pipe(
-    switchMap((roundId) =>
-      roundId ? this.roundService.getPoules(roundId) : of([]),
+  protected poules$ = toObservable(this.roundService.activeRound).pipe(
+    switchMap((round) =>
+      round ? this.roundService.getPoules(round.id) : of([]),
     ),
   );
 
