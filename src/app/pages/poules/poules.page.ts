@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoundService } from '../../services/round.service';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
-import { switchMap, of, tap, map } from 'rxjs';
+import { switchMap, of, tap, map, filter } from 'rxjs';
 import { RoundSelectorComponent } from '../../components/round-selector/round-selector.component';
 import { PouleComponent } from '../../components/poule/poule.component';
 import { SettingsService } from '../../services/settings.service';
@@ -18,9 +18,9 @@ export class PoulesPage {
   private settingsService = inject(SettingsService);
 
   protected poules$ = toObservable(this.roundService.activeRound).pipe(
-    switchMap((round) =>
-      round ? this.roundService.getPoules(round.id) : of([]),
-    ),
+    filter(Boolean),
+    tap((round) => round.isKo && this.roundService.setActiveRound(null)),
+    switchMap((round) => this.roundService.getPoules(round.id)),
   );
 
   protected myPoule$ = this.poules$.pipe(

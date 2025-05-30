@@ -1,15 +1,8 @@
-import {
-  Component,
-  computed,
-  inject,
-  input,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Game, KOGame } from '../../../models/game';
-import { toObservable } from '@angular/core/rxjs-interop';
-import { filter, take, tap } from 'rxjs';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { filter, tap } from 'rxjs';
 
 @Component({
   selector: 'app-game-list',
@@ -26,8 +19,8 @@ export class GameListComponent {
   constructor() {
     toObservable(this.gameSeries)
       .pipe(
+        takeUntilDestroyed(),
         filter((gs) => !!gs.length),
-        take(1),
         tap((gameSeries) => {
           const index = gameSeries.findIndex((games) =>
             games.every(
