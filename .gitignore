@@ -85,3 +85,5 @@ Temporary Items
 
 .nx/cache
 .nx/workspace-data
+
+**/environment.ts
