@@ -14,10 +14,10 @@
 
   @if (games$ | async; as games) {
   <div>
-    <app-game-list
+    <app-game-overview
       [gameSeries]="games"
       [koRoundNaming]="!!activeRound()?.isKo"
-    ></app-game-list>
+    ></app-game-overview>
   </div>
   }
 </ng-container>

@@ -8,7 +8,7 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FilterModalComponent } from './filter-modal/filter-modal.component';
-import { GameListComponent } from './game-list/game-list.component';
+import { GameOverviewComponent } from './game-overview/game-overview.component';
 
 @Component({
   selector: 'app-games',
@@ -16,7 +16,7 @@ import { GameListComponent } from './game-list/game-list.component';
     CommonModule,
     FontAwesomeModule,
     RoundSelectorComponent,
-    GameListComponent,
+    GameOverviewComponent,
   ],
   templateUrl: './games.page.html',
   styleUrl: './games.page.scss',

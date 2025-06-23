@@ -1,0 +1,26 @@
+<ng-container>
+  <div class="d-flex flex-nowrap overflow-scroll mb-1">
+    @for (playingRound of playingRoundIds(); track $index) {
+      <a (click)="activePlayingRound.set(playingRound)"
+        ><span
+          class="badge rounded-pill text-bg-{{
+            activePlayingRound() === playingRound ? 'primary' : 'secondary'
+          }} p-2 me-1"
+          id="playing-round-{{ playingRound }}"
+          >{{
+            koRoundNaming()
+              ? getKoRoundName(playingRound)
+              : "Ronde " + playingRound
+          }}</span
+        ></a
+      >
+    }
+  </div>
+
+  @if (isUndefinedPlayingRound(activePlayingRound())) {
+    <p>Deze speelronde is nog niet bekend</p>
+  } @else {
+    <!-- @let isFinal = koRoundNaming() && getKoRoundName(activePlayingRound()) === 'Finale'; -->
+    <app-game-list [games]="selectedGames()"></app-game-list>
+  }
+</ng-container>

@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common';
 import { Game, KOGame } from '../../../models/game';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { filter, tap } from 'rxjs';
+import { GameListComponent } from '../../../components/game-list/game-list.component';
 
 @Component({
-  selector: 'app-game-list',
-  imports: [CommonModule],
-  templateUrl: './game-list.component.html',
-  styleUrl: './game-list.component.scss',
+  selector: 'app-game-overview',
+  imports: [CommonModule, GameListComponent],
+  templateUrl: './game-overview.component.html',
+  styleUrl: './game-overview.component.scss',
 })
-export class GameListComponent {
+export class GameOverviewComponent {
   public gameSeries = input.required<(Game | KOGame)[][]>();
   public koRoundNaming = input(false);
 
@@ -41,12 +42,6 @@ export class GameListComponent {
 
   protected selectedGames = computed(
     () => this.gameSeries()[this.activePlayingRound() - 1],
-  );
-
-  protected showScoreColumn = computed(() =>
-    this.selectedGames()?.some(
-      (game) => game.score_1 !== null || game.score_2 !== null,
-    ),
   );
 
   protected getKoRoundName(roundNumber: number) {
