@@ -7,7 +7,7 @@ import { GamesPage } from './pages/games/games.page';
 import { WaitPage } from './pages/wait/wait.page';
 import { environment } from '../environment/environment';
 
-const REDIRECT_TO_WAIT_PAGE = false;
+const REDIRECT_TO_WAIT_PAGE = true;
 
 export const routes: Routes = [
   ...(environment.production && REDIRECT_TO_WAIT_PAGE
