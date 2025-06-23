@@ -12,6 +12,7 @@ import { TournamentService } from './services/tournament.service';
 import { SettingsService } from './services/settings.service';
 import { Title } from '@angular/platform-browser';
 import { ToastsContainer } from './toasts-container.component';
+import { Location } from '@angular/common';
 // import { AsyncPipe } from '@angular/common';
 
 @Component({
@@ -21,7 +22,7 @@ import { ToastsContainer } from './toasts-container.component';
     RouterLink,
     RouterLinkActive,
     FontAwesomeModule,
-    ToastsContainer
+    ToastsContainer,
     // AsyncPipe,
   ],
   templateUrl: './app.component.html',
@@ -31,6 +32,7 @@ export class AppComponent {
   private tournamentService = inject(TournamentService);
   private settingsService = inject(SettingsService);
   private titleService = inject(Title);
+  private location = inject(Location);
 
   protected faHome = faHome;
   protected faUserGroup = faUserGroup;
@@ -44,5 +46,9 @@ export class AppComponent {
 
   protected getTitle(): string {
     return this.titleService.getTitle();
+  }
+
+  protected showNav() {
+    return !(this.location.path() === '/geduld');
   }
 }

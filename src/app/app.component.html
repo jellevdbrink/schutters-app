@@ -16,29 +16,31 @@
 
   <app-toasts></app-toasts>
 
-  <nav class="navbar fixed-bottom bg-primary text-white">
-    <div class="container-fluid justify-content-around">
-      <a routerLink="/home" routerLinkActive="text-black" class="nav-link"
-        ><fa-icon size="xl" [icon]="faHome"></fa-icon
-      ></a>
-      <a routerLink="/standen" routerLinkActive="text-black" class="nav-link"
-        ><fa-icon size="xl" [icon]="faUserGroup"></fa-icon
-      ></a>
-      <a
-        routerLink="/wedstrijden"
-        routerLinkActive="text-black"
-        class="nav-link"
-        ><fa-icon size="xl" [icon]="faCalendar"></fa-icon
-      ></a>
-      <a routerLink="/ko" routerLinkActive="text-black" class="nav-link"
-        ><fa-icon size="xl" [icon]="faTrophy"></fa-icon
-      ></a>
-      <a
-        routerLink="/instellingen"
-        routerLinkActive="text-black"
-        class="nav-link"
-        ><fa-icon size="xl" [icon]="faSliders"></fa-icon
-      ></a>
-    </div>
-  </nav>
+  @if (showNav()) {
+    <nav class="navbar fixed-bottom bg-primary text-white">
+      <div class="container-fluid justify-content-around">
+        <a routerLink="/home" routerLinkActive="text-black" class="nav-link"
+          ><fa-icon size="xl" [icon]="faHome"></fa-icon
+        ></a>
+        <a routerLink="/standen" routerLinkActive="text-black" class="nav-link"
+          ><fa-icon size="xl" [icon]="faUserGroup"></fa-icon
+        ></a>
+        <a
+          routerLink="/wedstrijden"
+          routerLinkActive="text-black"
+          class="nav-link"
+          ><fa-icon size="xl" [icon]="faCalendar"></fa-icon
+        ></a>
+        <a routerLink="/ko" routerLinkActive="text-black" class="nav-link"
+          ><fa-icon size="xl" [icon]="faTrophy"></fa-icon
+        ></a>
+        <a
+          routerLink="/instellingen"
+          routerLinkActive="text-black"
+          class="nav-link"
+          ><fa-icon size="xl" [icon]="faSliders"></fa-icon
+        ></a>
+      </div>
+    </nav>
+  }
 </ng-container>
