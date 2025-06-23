@@ -9,7 +9,7 @@
           id="playing-round-{{ playingRound }}"
           >{{
             koRoundNaming()
-              ? getKoRoundName(playingRound)
+              ? getKoRoundName(gameSeries()[0].length, playingRound)
               : "Ronde " + playingRound
           }}</span
         ></a

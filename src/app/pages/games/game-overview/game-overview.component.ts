@@ -4,6 +4,7 @@ import { Game, KOGame } from '../../../models/game';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { filter, tap } from 'rxjs';
 import { GameListComponent } from '../../../components/game-list/game-list.component';
+import { getKoRoundName } from '../../../../helpers';
 
 @Component({
   selector: 'app-game-overview',
@@ -16,6 +17,7 @@ export class GameOverviewComponent {
   public koRoundNaming = input(false);
 
   protected activePlayingRound = signal<number>(1);
+  protected getKoRoundName = getKoRoundName;
 
   constructor() {
     toObservable(this.gameSeries)
@@ -43,11 +45,6 @@ export class GameOverviewComponent {
   protected selectedGames = computed(
     () => this.gameSeries()[this.activePlayingRound() - 1],
   );
-
-  protected getKoRoundName(roundNumber: number) {
-    const num = this.gameSeries()[0].length / 2 ** (roundNumber - 1);
-    return num === 1 ? `Finale` : `1/${num} finale`;
-  }
 
   protected isUndefinedPlayingRound(roundNumber: number) {
     return this.gameSeries()[roundNumber - 1].some(

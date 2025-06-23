@@ -49,6 +49,6 @@ export class AppComponent {
   }
 
   protected showNav() {
-    return !(this.location.path() === '/geduld');
+    return !['/geduld', '/tv'].includes(this.location.path());
   }
 }

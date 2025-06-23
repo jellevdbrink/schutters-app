@@ -4,6 +4,7 @@ import { TournamentPage } from './pages/tournament/tournament.page';
 import { SettingsPage } from './pages/settings/settings.page';
 import { PoulesPage } from './pages/poules/poules.page';
 import { GamesPage } from './pages/games/games.page';
+import { TvPage } from './pages/tv/tv.page';
 import { WaitPage } from './pages/wait/wait.page';
 import { environment } from '../environment/environment';
 
@@ -29,6 +30,8 @@ export const routes: Routes = [
   // { path: 'rondes/:roundId/wedstrijden', component: },
 
   { path: 'wedstrijden', title: 'Wedstrijden', component: GamesPage },
+
+  { path: 'tv', title: 'TV', component: TvPage },
 
   { path: 'instellingen', title: 'Instellingen', component: SettingsPage },
 
