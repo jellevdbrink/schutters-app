@@ -1,5 +1,5 @@
 import { Component, computed, input, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Game, KOGame } from '../../../models/game';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { filter, tap } from 'rxjs';
@@ -8,7 +8,7 @@ import { getKoRoundName } from '../../../../helpers';
 
 @Component({
   selector: 'app-game-overview',
-  imports: [CommonModule, GameListComponent],
+  imports: [GameListComponent],
   templateUrl: './game-overview.component.html',
   styleUrl: './game-overview.component.scss',
 })

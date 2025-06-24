@@ -1,14 +1,14 @@
 {
-  "$schema": "node_modules/nx/schemas/project-schema.json",
   "name": "schutters-app",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
+  "sourceRoot": "src",
+  "prefix": "app",
   "generators": {
     "@schematics/angular:component": {
       "style": "scss"
     }
   },
-  "sourceRoot": "src",
-  "prefix": "app",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
@@ -16,10 +16,7 @@
         "outputPath": "dist/schutters-app",
         "index": "src/index.html",
         "browser": "src/main.ts",
-        "polyfills": [
-          "zone.js",
-          "@angular/localize/init"
-        ],
+        "polyfills": ["zone.js", "@angular/localize/init"],
         "tsConfig": "tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -28,9 +25,7 @@
             "input": "public"
           }
         ],
-        "styles": [
-          "src/styles.scss"
-        ],
+        "styles": ["src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -67,7 +62,8 @@
           "buildTarget": "schutters-app:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n"
@@ -75,11 +71,7 @@
     "test": {
       "executor": "@angular-devkit/build-angular:karma",
       "options": {
-        "polyfills": [
-          "zone.js",
-          "zone.js/testing",
-          "@angular/localize/init"
-        ],
+        "polyfills": ["zone.js", "zone.js/testing", "@angular/localize/init"],
         "tsConfig": "tsconfig.spec.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -88,9 +80,7 @@
             "input": "public"
           }
         ],
-        "styles": [
-          "src/styles.scss"
-        ],
+        "styles": ["src/styles.scss"],
         "scripts": []
       }
     }

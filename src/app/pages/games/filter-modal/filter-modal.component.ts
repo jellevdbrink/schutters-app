@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SettingsService, StorageKeys } from '../../../services/settings.service';
@@ -12,7 +12,7 @@ export type GameFilters = {
 
 @Component({
   selector: 'app-filter-modal',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './filter-modal.component.html',
   styleUrl: './filter-modal.component.scss',
 })
