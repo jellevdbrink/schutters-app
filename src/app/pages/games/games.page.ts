@@ -9,6 +9,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FilterModalComponent } from './filter-modal/filter-modal.component';
 import { GameOverviewComponent } from './game-overview/game-overview.component';
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-games',
@@ -23,10 +24,11 @@ import { GameOverviewComponent } from './game-overview/game-overview.component';
 })
 export class GamesPage {
   private roundService = inject(RoundService);
+  private settingsService = inject(SettingsService);
   private modalService = inject(NgbModal);
 
   protected faFilter = faFilter;
-  protected activeRound = this.roundService.activeRound;
+  protected activeRound = this.settingsService.activeRound;
 
   protected games$ = toObservable(this.activeRound).pipe(
     switchMap((round) =>

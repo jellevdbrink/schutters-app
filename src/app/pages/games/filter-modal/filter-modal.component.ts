@@ -21,12 +21,12 @@ export class FilterModalComponent {
   private settingsService = inject(SettingsService);
 
   protected filterForm: FormOf<GameFilters> = new FormGroup({
-    showPastGames: new FormControl(this.settingsService.getGameFilters()?.showPastGames ?? true, { nonNullable: true }),
-    showFutureGames: new FormControl(this.settingsService.getGameFilters()?.showFutureGames ?? true, { nonNullable: true }),
+    showPastGames: new FormControl(this.settingsService.gameFilters()?.showPastGames ?? true, { nonNullable: true }),
+    showFutureGames: new FormControl(this.settingsService.gameFilters()?.showFutureGames ?? true, { nonNullable: true }),
   });
 
   protected save(): void {
-    this.settingsService.setItem(StorageKeys.GAMEFILTERS, JSON.stringify(this.filterForm.getRawValue()));
+    this.settingsService.gameFilters.set(this.filterForm.getRawValue());
     this.close();
   }
 

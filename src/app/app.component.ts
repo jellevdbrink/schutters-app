@@ -41,7 +41,7 @@ export class AppComponent {
   protected faCalendar = faCalendar;
 
   protected tournament$ = this.tournamentService.getTournament(
-    this.settingsService.getTournamentSetting(),
+    this.settingsService.activeTournament(),
   );
 
   protected getTitle(): string {

@@ -52,7 +52,7 @@ export class TvPage implements OnInit {
   private titleService = inject(Title);
 
   protected tournament$ = this.tournamentService.getTournament(
-    this.settingsService.getTournamentSetting(),
+    this.settingsService.activeTournament(),
   );
   protected slides: Slide[] = [];
 
@@ -73,9 +73,7 @@ export class TvPage implements OnInit {
   }
 
   private async updateSlides(): Promise<void> {
-    let rounds = await firstValueFrom(
-      this.roundService.getRounds(this.settingsService.getTournamentSetting()),
-    );
+    let rounds = await firstValueFrom(this.roundService.getRounds());
     if (rounds.length > 1) {
       rounds = rounds.slice(-2);
     }

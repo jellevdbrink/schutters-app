@@ -18,33 +18,22 @@ export class RoundSelectorComponent {
   public hideGroup = input(false);
   public hideKo = input(false);
 
-  protected rounds$ = this.roundService
-    .getRounds(this.settingsService.getTournamentSetting())
-    .pipe(
-      map((rounds) =>
-        rounds.filter((round) => {
-          if (this.hideKo() && round.isKo) return false;
-          if (this.hideGroup() && !round.isKo) return false;
-          return true;
-        }),
-      ),
-      tap((rounds) => {
-        // if (!this.forKo() && this.roundService.activeRound() == null) {
-        if (this.roundService.activeRound() == null) {
-          const lastRound = rounds.at(-1);
-          if (lastRound) this.roundService.setActiveRound(lastRound);
-        }
+  protected activeRound = this.settingsService.activeRound;
+
+  protected rounds$ = this.roundService.getRounds().pipe(
+    map((rounds) =>
+      rounds.filter((round) => {
+        if (this.hideKo() && round.isKo) return false;
+        if (this.hideGroup() && !round.isKo) return false;
+        return true;
       }),
-    );
-
-  protected setRound(round: Round): void {
-    // if (this.forKo()) {
-    // } else {
-    this.roundService.setActiveRound(round);
-    // }
-  }
-
-  protected getRound(): Round | null {
-    return this.roundService.activeRound();
-  }
+    ),
+    tap((rounds) => {
+      // if (!this.forKo() && this.roundService.activeRound() == null) {
+      if (this.settingsService.activeRound() == null) {
+        const lastRound = rounds.at(-1);
+        if (lastRound) this.settingsService.activeRound.set(lastRound);
+      }
+    }),
+  );
 }

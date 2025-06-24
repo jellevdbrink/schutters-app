@@ -3,17 +3,22 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Team } from '../models/team';
 import { environment } from '../../environment/environment';
+import { SettingsService } from './settings.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TeamsService {
   private http = inject(HttpClient);
+  private settingsService = inject(SettingsService);
 
   constructor() {}
 
-  public getTeams(tournamentId: number): Observable<Team[]> {
-    return this.http
-      .get<Team[]>(`${environment.api}/tournaments/${tournamentId}/teams`)
+  public getTeams(
+    tournamentId: number = this.settingsService.activeTournament(),
+  ): Observable<Team[]> {
+    return this.http.get<Team[]>(
+      `${environment.api}/tournaments/${tournamentId}/teams`,
+    );
   }
 }

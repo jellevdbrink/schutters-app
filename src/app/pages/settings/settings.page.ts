@@ -4,10 +4,9 @@ import {
   FormGroup,
   FormControl,
   ReactiveFormsModule,
-  Form,
 } from '@angular/forms';
 import { TournamentService } from '../../services/tournament.service';
-import { SettingsService, StorageKeys } from '../../services/settings.service';
+import { SettingsService } from '../../services/settings.service';
 import { TeamsService } from '../../services/teams.service';
 import { ToastService } from '../../services/toast.service';
 
@@ -29,31 +28,22 @@ export class SettingsPage {
   private toastService = inject(ToastService);
 
   protected tournaments$ = this.tournamentService.getTournaments();
-  protected teams$ = this.teamService.getTeams(
-    this.settingsService.getTournamentSetting(),
-  );
+  protected teams$ = this.teamService.getTeams();
 
   protected settingsForm: SettingsForm = new FormGroup({
-    tournament: new FormControl(this.settingsService.getTournamentSetting(), {
+    tournament: new FormControl(this.settingsService.activeTournament(), {
       nonNullable: true,
     }),
-    team: new FormControl(this.settingsService.getTeamSetting(), {
+    team: new FormControl(this.settingsService.myTeam(), {
       nonNullable: true,
     }),
   });
 
   protected saveSettingsForm() {
     const formValue = this.settingsForm.getRawValue();
-    this.settingsService.setItem(
-      StorageKeys.TOURNAMENT,
-      formValue.tournament,
-    );
 
-    if (formValue.team === null) {
-      this.settingsService.removeItem(StorageKeys.TEAM);
-    } else {
-      this.settingsService.setItem(StorageKeys.TEAM, formValue.team);
-    }
+    this.settingsService.activeTournament.set(formValue.tournament);
+    this.settingsService.myTeam.set(formValue.team)
 
     this.toastService.show({
       text: 'Instellingen opgeslagen',

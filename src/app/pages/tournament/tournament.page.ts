@@ -24,7 +24,7 @@ export class TournamentPage {
   @Input({ required: true })
   set tournamentId(tournamentId: number | undefined) {
     if (!tournamentId) {
-      tournamentId = this.settingsService.getTournamentSetting();
+      tournamentId = this.settingsService.activeTournament();
     }
     this.tournament$ = this.tournamentService.getTournament(tournamentId);
     this.rounds$ = this.roundService.getRounds(tournamentId);

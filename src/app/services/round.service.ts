@@ -16,12 +16,11 @@ export class RoundService {
   private http = inject(HttpClient);
   private settingsService = inject(SettingsService);
 
-  private _activeRound = signal(this.settingsService.getActiveRound());
-  public activeRound = this._activeRound.asReadonly();
-
   constructor() {}
 
-  public getRounds(tournamentId: number): Observable<Round[]> {
+  public getRounds(
+    tournamentId: number = this.settingsService.activeTournament(),
+  ): Observable<Round[]> {
     return this.http
       .get<Round[]>(`${environment.api}/tournaments/${tournamentId}/rounds`)
       .pipe(map((rounds) => rounds.map(transformStartDate)));
@@ -60,14 +59,5 @@ export class RoundService {
           })),
         ),
       );
-  }
-
-  public setActiveRound(round: Round | null): void {
-    this._activeRound.set(round);
-    if (round === null) {
-      this.settingsService.removeItem(StorageKeys.ROUND);
-    } else {
-      this.settingsService.setItem(StorageKeys.ROUND, JSON.stringify(round));
-    }
   }
 }
