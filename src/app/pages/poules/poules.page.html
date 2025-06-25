@@ -2,7 +2,7 @@
   <app-round-selector [hideKo]="true"></app-round-selector>
   @if (myPoule$ | async; as myPoule) {
   <div class="py-1 px-2 border border-success-subtle border-2 rounded-3 mb-2">
-    <app-poule [poule]="myPoule"></app-poule>
+    <app-poule [poule]="myPoule" [highlight]="true"></app-poule>
   </div>
   }
 

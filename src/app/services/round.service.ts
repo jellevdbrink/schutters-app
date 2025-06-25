@@ -48,6 +48,12 @@ export class RoundService {
     );
   }
 
+  public getLatestPoule(teamId: number): Observable<Poule> {
+    return this.http.get<Poule>(
+      `${environment.api}/teams/${teamId}/latest-poule`,
+    );
+  }
+
   public getKOBracket(roundId: number): Observable<KOBracket[]> {
     return this.http
       .get<KOBracket[]>(`${environment.api}/rounds/${roundId}/ko_bracket`)

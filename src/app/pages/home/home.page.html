@@ -1,0 +1,46 @@
+<ng-container>
+  <h5 class="mb-0">Welkom op het FlexVisie Schutterstoernooi 2025</h5>
+  <ul>
+    <li>
+      Het is warm en in het veld sta je in de zon, vergeet je niet in te smeren!
+    </li>
+    <li>
+      Muntjes voor eten en drinken kan je halen bij de muntjesverkoop naast het
+      wedstrijdsecretariaat.
+    </li>
+  </ul>
+
+  <div>
+    @let myPoule = latestMyPoule$ | async; @let myGames = myGames$ | async;
+    <h5>Mijn programma</h5>
+    @if (myPoule && myGames) {
+    <app-poule
+      [poule]="myPoule"
+      [highlight]="true"
+      [showField]="false"
+    ></app-poule>
+    <app-game-list [games]="myGames"></app-game-list>
+    } @else if (myPoule === undefined && myGames === undefined) {
+    <p>Selecteer jouw team om hier de stand in je eigen team te zien.</p>
+    } @else {
+    <p>loading</p>
+    }
+  </div>
+
+  <div class="my-2">
+    <label for="team" class="form-label">Mijn team</label>
+    <select
+      id="team"
+      [formControl]="teamControl"
+      (change)="onTeamChange()"
+      class="form-select"
+    >
+      <option [ngValue]="null">Geen team</option>
+      @for (team of teams$ | async; track team.id) {
+      <option [ngValue]="team.id">
+        {{ team.team_number }}. {{ team.player_1 }} & {{ team.player_2 }}
+      </option>
+      }
+    </select>
+  </div>
+</ng-container>

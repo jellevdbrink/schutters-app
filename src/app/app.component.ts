@@ -5,7 +5,6 @@ import {
   faHome,
   faUserGroup,
   faTrophy,
-  faSliders,
   faCalendar,
 } from '@fortawesome/free-solid-svg-icons';
 import { TournamentService } from './services/tournament.service';
@@ -37,7 +36,6 @@ export class AppComponent {
   protected faHome = faHome;
   protected faUserGroup = faUserGroup;
   protected faTrophy = faTrophy;
-  protected faSliders = faSliders;
   protected faCalendar = faCalendar;
 
   protected tournament$ = this.tournamentService.getTournament(

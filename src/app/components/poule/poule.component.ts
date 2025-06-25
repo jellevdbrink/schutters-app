@@ -10,4 +10,6 @@ import { Poule } from '../../models/ranking';
 })
 export class PouleComponent {
   public poule = input.required<Poule>();
+  public highlight = input(false);
+  public showField = input(true);
 }
