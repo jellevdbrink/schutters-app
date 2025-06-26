@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoundService } from '../../services/round.service';
-import { combineLatest, firstValueFrom, map, of, switchMap } from 'rxjs';
+import { delay, map, of, switchMap } from 'rxjs';
 import { SettingsService } from '../../services/settings.service';
 import { PouleComponent } from '../../components/poule/poule.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -10,6 +10,8 @@ import { ToastService } from '../../services/toast.service';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { TournamentService } from '../../services/tournament.service';
 import { GameListComponent } from '../../components/game-list/game-list.component';
+import { NewsService } from '../../services/news.service';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +20,7 @@ import { GameListComponent } from '../../components/game-list/game-list.componen
     ReactiveFormsModule,
     PouleComponent,
     GameListComponent,
+    NgbCarouselModule,
   ],
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss',
@@ -28,14 +31,22 @@ export class HomePage {
   private teamsService = inject(TeamsService);
   private tournamentService = inject(TournamentService);
   private toastService = inject(ToastService);
+  private newsService = inject(NewsService);
 
   protected teamControl = new FormControl(this.settingsService.myTeam(), {
     nonNullable: true,
   });
 
   protected teams$ = this.teamsService.getTeams();
+  protected news$ = this.newsService
+    .getNews()
+    .pipe(
+      map((news) =>
+        news.filter((newsItem) => ![2661, 2708, 2718].includes(newsItem.id)),
+      ),
+    );
 
-  protected latestMyPoule$ = toObservable(this.settingsService.myTeam).pipe(
+  protected latestMyPoule$ = toObservable(this.settingsService.myTeam).pipe(delay(2000),
     switchMap((myTeamId) =>
       myTeamId ? this.roundService.getLatestPoule(myTeamId) : of(undefined),
     ),

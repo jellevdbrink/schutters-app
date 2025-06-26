@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody class="table-group-divider">
-    @for (game of games(); track game.id) {
+    @for (game of sortedGames(); track game.id) {
       <tr>
         <td>{{ game.field }}</td>
         <td>{{ game.team1.player_1 }} & {{ game.team1.player_2 }}</td>

@@ -1,19 +1,55 @@
 <ng-container>
-  <h5 class="mb-0">Welkom op het FlexVisie Schutterstoernooi 2025</h5>
-  <ul>
-    <li>
-      Het is warm en in het veld sta je in de zon, vergeet je niet in te smeren!
-    </li>
-    <li>
-      Muntjes voor eten en drinken kan je halen bij de muntjesverkoop naast het
-      wedstrijdsecretariaat.
-    </li>
-  </ul>
+  <div class="my-2">
+    <h1>Nieuws</h1>
+    <ngb-carousel class="carousel-dark" [showNavigationIndicators]="false">
+      @for(newsItem of news$ | async; track newsItem.id) {
+      <ng-template ngbSlide>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{newsItem.title.rendered}}</h5>
+            <p class="card-text" [innerHTML]="newsItem.excerpt.rendered"></p>
+            <a
+              class="btn btn-primary"
+              href="{{ newsItem.link }}"
+              target="_blank"
+              >Lees volledige post</a
+            >
+          </div>
+        </div>
+      </ng-template>
 
-  <div>
-    @let myPoule = latestMyPoule$ | async; @let myGames = myGames$ | async;
-    <h5>Mijn programma</h5>
-    @if (myPoule && myGames) {
+      } @empty {
+      <ng-template ngbSlide>
+        <div class="card" aria-hidden="true">
+          <div class="card-body">
+            <h5 class="card-title placeholder-glow">
+              <span class="placeholder col-6"></span>
+            </h5>
+            <p class="card-text placeholder-glow">
+              <span class="placeholder col-7"></span>
+              <span class="placeholder col-4"></span>
+              <span class="placeholder col-4"></span>
+              <span class="placeholder col-6"></span>
+              <span class="placeholder col-8"></span>
+              <span class="placeholder col-6"></span>
+              <span class="placeholder col-3"></span>
+            </p>
+            <a
+              class="btn btn-primary disabled placeholder col-6"
+              aria-disabled="true"
+            ></a>
+          </div>
+        </div>
+      </ng-template>
+      }
+    </ngb-carousel>
+  </div>
+
+  <div class="mt-3">
+    <h1>Mijn toernooi</h1>
+
+    @let myPoule = latestMyPoule$ | async; @let myGames = myGames$ | async; @if
+    (myPoule && myGames) {
     <app-poule
       [poule]="myPoule"
       [highlight]="true"
@@ -21,14 +57,21 @@
     ></app-poule>
     <app-game-list [games]="myGames"></app-game-list>
     } @else if (myPoule === undefined && myGames === undefined) {
-    <p>Selecteer jouw team om hier de stand in je eigen team te zien.</p>
+    <p>
+      Selecteer jouw team om hier de stand in jouw poule en je
+      wedstrijdprogramma te zien.
+    </p>
     } @else {
-    <p>loading</p>
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Aan het laden...</span>
+      </div>
+    </div>
     }
   </div>
 
   <div class="my-2">
-    <label for="team" class="form-label">Mijn team</label>
+    <label for="team" class="h5 form-label">Mijn team</label>
     <select
       id="team"
       [formControl]="teamControl"
