@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { map } from 'rxjs';
 import type { WP_REST_API_Posts, WP_REST_API_Post } from 'wp-types';
 
 @Injectable({
@@ -19,6 +20,14 @@ export class NewsService {
   public getNewsItem(item: number) {
     return this.http.get<WP_REST_API_Post>(
       `https://schutterstoernooi.nl/wp-json/wp/v2/posts/${item}?_embed`,
+    );
+  }
+
+  public getRelevantNews() {
+    return this.getNews().pipe(
+      map((news) =>
+        news.filter((newsItem) => ![2661, 2708, 2718].includes(newsItem.id)),
+      ),
     );
   }
 }

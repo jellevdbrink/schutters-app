@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoundService } from '../../services/round.service';
-import { delay, map, of, switchMap } from 'rxjs';
+import { of, switchMap } from 'rxjs';
 import { SettingsService } from '../../services/settings.service';
 import { PouleComponent } from '../../components/poule/poule.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -38,15 +38,9 @@ export class HomePage {
   });
 
   protected teams$ = this.teamsService.getTeams();
-  protected news$ = this.newsService
-    .getNews()
-    .pipe(
-      map((news) =>
-        news.filter((newsItem) => ![2661, 2708, 2718].includes(newsItem.id)),
-      ),
-    );
+  protected news$ = this.newsService.getRelevantNews();
 
-  protected latestMyPoule$ = toObservable(this.settingsService.myTeam).pipe(delay(2000),
+  protected latestMyPoule$ = toObservable(this.settingsService.myTeam).pipe(
     switchMap((myTeamId) =>
       myTeamId ? this.roundService.getLatestPoule(myTeamId) : of(undefined),
     ),

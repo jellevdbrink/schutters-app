@@ -1,0 +1,34 @@
+<ng-container>
+  @for(newsItem of news$ | async; track newsItem.id) {
+  <div class="card mt-2">
+    <div class="card-body">
+      <h5 class="card-title">{{newsItem.title.rendered}}</h5>
+      <p class="card-text" [innerHTML]="newsItem.excerpt.rendered"></p>
+      <a class="btn btn-primary" href="{{ newsItem.link }}" target="_blank"
+        >Lees meer</a
+      >
+    </div>
+  </div>
+  } @empty {
+  <div class="card mt-2" aria-hidden="true">
+    <div class="card-body">
+      <h5 class="card-title placeholder-glow">
+        <span class="placeholder col-6"></span>
+      </h5>
+      <p class="card-text placeholder-glow">
+        <span class="placeholder col-7"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-6"></span>
+        <span class="placeholder col-8"></span>
+        <span class="placeholder col-6"></span>
+        <span class="placeholder col-3"></span>
+      </p>
+      <a
+        class="btn btn-primary disabled placeholder col-6"
+        aria-disabled="true"
+      ></a>
+    </div>
+  </div>
+  }
+</ng-container>
