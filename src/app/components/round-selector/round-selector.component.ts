@@ -36,4 +36,9 @@ export class RoundSelectorComponent {
       }
     }),
   );
+
+  protected setActiveRound(round: Round) {
+    this.settingsService.isLoading.set(true);
+    this.settingsService.activeRound.set(round);
+  }
 }

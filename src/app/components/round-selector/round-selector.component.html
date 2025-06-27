@@ -1,7 +1,7 @@
 <ul class="nav nav-pills flex-nowrap overflow-auto my-2">
   @for (round of rounds$ | async; track round.id) {
     <!-- <li class="nav-item" (click)="setRound(round.id)"><a class="btn btn-outline-{{ getRound() === round.id ? 'primary' : 'secondary' }} btn-sm me-1">{{ round.name }}</a></li> -->
-    <li class="nav-item" (click)="activeRound.set(round)">
+    <li class="nav-item" (click)="setActiveRound(round)">
       <a
         class="btn btn{{
           activeRound()?.id === round.id ? '' : '-outline'

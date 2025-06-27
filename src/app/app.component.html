@@ -1,12 +1,21 @@
 <ng-container>
   <div class="container">
-    <div class="title align-items-center d-flex fixed-top bg-primary">
-      <img
-        class="logo float-start me-2"
-        src="https://schutterstoernooi.nl/wp-content/uploads/2017/06/Logo-Twents-Open-Schutterstoernooi1.png"
-        alt="Schutterstoernooi logo"
-      />
-      <h1 class="text-white">{{ getTitle() }}</h1>
+    <div
+      class="title d-flex align-items-center justify-content-between fixed-top bg-primary px-3 py-2"
+    >
+      <div class="d-flex align-items-center">
+        <img
+          class="logo me-2"
+          src="https://schutterstoernooi.nl/wp-content/uploads/2017/06/Logo-Twents-Open-Schutterstoernooi1.png"
+          alt="Schutterstoernooi logo"
+        />
+        <h1 class="text-white m-0">{{ getTitle() }}</h1>
+      </div>
+      @if (isLoading()) {
+        <div class="spinner-border spinner-border-sm text-white" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      }
     </div>
   </div>
 

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Round } from '../models/round';
 import { environment } from '../../environment/environment';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { Game, KOGame } from '../models/game';
 import { transformStartDate } from '../../helpers';
 import { Poule } from '../models/ranking';
@@ -39,13 +39,14 @@ export class RoundService {
         map((gameSeries) =>
           gameSeries.map((games) => games.map(transformStartDate)),
         ),
+        tap(() => this.settingsService.isLoading.set(false)),
       );
   }
 
   public getPoules(roundId: number): Observable<Poule[]> {
-    return this.http.get<Poule[]>(
-      `${environment.api}/rounds/${roundId}/ranking`,
-    );
+    return this.http
+      .get<Poule[]>(`${environment.api}/rounds/${roundId}/ranking`)
+      .pipe(tap(() => this.settingsService.isLoading.set(false)));
   }
 
   public getLatestPoule(teamId: number): Observable<Poule> {
@@ -64,6 +65,7 @@ export class RoundService {
             games: koBracket.games.map(transformStartDate),
           })),
         ),
+        tap(() => this.settingsService.isLoading.set(false)),
       );
   }
 }

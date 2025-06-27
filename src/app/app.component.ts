@@ -40,6 +40,8 @@ export class AppComponent {
   protected faCalendar = faCalendar;
   protected faNewspaper = faNewspaper;
 
+  protected isLoading = this.settingsService.isLoading;
+
   protected tournament$ = this.tournamentService.getTournament(
     this.settingsService.activeTournament(),
   );

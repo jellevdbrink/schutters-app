@@ -1,7 +1,7 @@
 <ng-container>
   <div class="d-flex flex-nowrap overflow-scroll mb-1">
     @for (playingRound of playingRoundIds(); track $index) {
-      <a (click)="activePlayingRound.set(playingRound)"
+      <a (click)="setActivePlayingRound(playingRound)"
         ><span
           class="badge rounded-pill text-bg-{{
             activePlayingRound() === playingRound ? 'primary' : 'secondary'

@@ -20,6 +20,8 @@ export class SettingsService {
   public activeRound = signal(this.getActiveRound());
   public gameFilters = signal(this.getGameFilters());
 
+  public isLoading = signal(false);
+
   constructor() {
     toObservable(this.myTeam)
       .pipe(takeUntilDestroyed())
@@ -36,7 +38,7 @@ export class SettingsService {
       .subscribe((newActiveRound) =>
         this.setOrDeleteItem(StorageKeys.ROUND, newActiveRound),
       );
-      toObservable(this.gameFilters)
+    toObservable(this.gameFilters)
       .pipe(takeUntilDestroyed())
       .subscribe((newGameFilters) =>
         this.setOrDeleteItem(StorageKeys.GAMEFILTERS, newGameFilters),

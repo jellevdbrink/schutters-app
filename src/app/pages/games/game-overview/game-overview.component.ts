@@ -1,10 +1,11 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 
 import { Game, KOGame } from '../../../models/game';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { filter, tap } from 'rxjs';
 import { GameListComponent } from '../../../components/game-list/game-list.component';
 import { getKoRoundName } from '../../../../helpers';
+//import { SettingsService } from '../../../services/settings.service';
 
 @Component({
   selector: 'app-game-overview',
@@ -13,6 +14,8 @@ import { getKoRoundName } from '../../../../helpers';
   styleUrl: './game-overview.component.scss',
 })
 export class GameOverviewComponent {
+  //private settingsService = inject(SettingsService);
+
   public gameSeries = input.required<(Game | KOGame)[][]>();
   public koRoundNaming = input(false);
 
@@ -50,5 +53,10 @@ export class GameOverviewComponent {
     return this.gameSeries()[roundNumber - 1].some(
       (round) => round.team1 === null || round.team2 === null,
     );
+  }
+
+  protected setActivePlayingRound(roundNumber: number): void {
+    //this.settingsService.isLoading.set(true);
+    this.activePlayingRound.set(roundNumber);
   }
 }
