@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { SettingsService } from '../../services/settings.service';
 import { RoundService } from '../../services/round.service';
 import { map, tap } from 'rxjs';
-import { Round } from '../../models/round';
 
 @Component({
   selector: 'app-round-selector',
@@ -36,9 +35,4 @@ export class RoundSelectorComponent {
       }
     }),
   );
-
-  protected setActiveRound(round: Round) {
-    this.settingsService.isLoading.set(true);
-    this.settingsService.activeRound.set(round);
-  }
 }

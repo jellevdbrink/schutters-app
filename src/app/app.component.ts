@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -40,7 +40,7 @@ export class AppComponent {
   protected faCalendar = faCalendar;
   protected faNewspaper = faNewspaper;
 
-  protected isLoading = this.settingsService.isLoading;
+  protected showLoading = computed(() => this.settingsService.numLoading() > 0);
 
   protected tournament$ = this.tournamentService.getTournament(
     this.settingsService.activeTournament(),

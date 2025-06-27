@@ -20,7 +20,7 @@ export class SettingsService {
   public activeRound = signal(this.getActiveRound());
   public gameFilters = signal(this.getGameFilters());
 
-  public isLoading = signal(false);
+  public numLoading = signal(0);
 
   constructor() {
     toObservable(this.myTeam)
