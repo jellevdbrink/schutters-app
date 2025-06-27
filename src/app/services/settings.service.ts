@@ -50,9 +50,10 @@ export class SettingsService {
   }
 
   private getTournamentSetting(): number {
-    return +(
-      this.getItem(StorageKeys.TOURNAMENT) ?? environment.defaultTournament
-    );
+    //   return +(
+    //     this.getItem(StorageKeys.TOURNAMENT) ?? environment.defaultTournament
+    //  );
+    return +environment.defaultTournament;
   }
 
   private getActiveRound(): Round | null {
