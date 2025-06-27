@@ -10,7 +10,8 @@ import { Game } from '../../models/game';
 })
 export class GameListComponent {
   public games = input.required<Game[]>();
-  public sortedGames = computed(() =>
+
+  protected sortedGames = computed(() =>
     this.games().sort(
       // TODO fix op een normale manier
       (a, b) =>
@@ -18,6 +19,10 @@ export class GameListComponent {
         a.start_date.getMinutes() -
         (b.start_date.getHours() * 60 + b.start_date.getMinutes()),
     ),
+  );
+
+  protected isFinalGames = computed(() =>
+    this.games().every((game) => game.field === '1'),
   );
 
   protected showScoreColumn = computed(() =>

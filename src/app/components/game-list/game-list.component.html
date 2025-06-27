@@ -14,7 +14,11 @@
   <tbody class="table-group-divider">
     @for (game of sortedGames(); track game.id) {
       <tr>
-        <td>{{ game.field }}</td>
+        @if (isFinalGames()) {
+          <td>Finale veld</td>
+        } @else {
+          <td>{{ game.field }}</td>
+        }
         <td>{{ game.team1.player_1 }} & {{ game.team1.player_2 }}</td>
         @if (showScore) {
           <td class="text-nowrap">{{ game.score_1 }}-{{ game.score_2 }}</td>
