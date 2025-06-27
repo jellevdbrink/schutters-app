@@ -54,9 +54,4 @@ export class GameOverviewComponent {
       (round) => round.team1 === null || round.team2 === null,
     );
   }
-
-  protected setActivePlayingRound(roundNumber: number): void {
-    //this.settingsService.isLoading.set(true);
-    this.activePlayingRound.set(roundNumber);
-  }
 }

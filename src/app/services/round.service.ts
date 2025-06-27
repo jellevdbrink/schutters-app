@@ -39,14 +39,13 @@ export class RoundService {
         map((gameSeries) =>
           gameSeries.map((games) => games.map(transformStartDate)),
         ),
-        tap(() => this.settingsService.isLoading.set(false)),
       );
   }
 
   public getPoules(roundId: number): Observable<Poule[]> {
-    return this.http
-      .get<Poule[]>(`${environment.api}/rounds/${roundId}/ranking`)
-      .pipe(tap(() => this.settingsService.isLoading.set(false)));
+    return this.http.get<Poule[]>(
+      `${environment.api}/rounds/${roundId}/ranking`,
+    );
   }
 
   public getLatestPoule(teamId: number): Observable<Poule> {
@@ -65,7 +64,6 @@ export class RoundService {
             games: koBracket.games.map(transformStartDate),
           })),
         ),
-        tap(() => this.settingsService.isLoading.set(false)),
       );
   }
 }

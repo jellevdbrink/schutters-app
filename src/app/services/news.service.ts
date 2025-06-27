@@ -30,7 +30,6 @@ export class NewsService {
       map((news) =>
         news.filter((newsItem) => ![2661, 2708, 2718].includes(newsItem.id)),
       ),
-      tap(() => this.settingsService.isLoading.set(false)),
     );
   }
 }
