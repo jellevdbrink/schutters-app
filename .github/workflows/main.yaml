@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -29,7 +29,7 @@ jobs:
           npx nx build --configuration production
 
       - name: Upload new files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.FTP_USER }}
