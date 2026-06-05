@@ -6,6 +6,7 @@ import { TournamentService } from '../../services/tournament.service';
 import { map } from 'rxjs/operators';
 
 @Component({
+  standalone: true,
   selector: 'app-tournaments',
   imports: [CommonModule, AsyncPipe, RouterLink],
   templateUrl: './tournaments.page.html',

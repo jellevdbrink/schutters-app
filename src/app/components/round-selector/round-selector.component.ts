@@ -5,6 +5,7 @@ import { RoundService } from '../../services/round.service';
 import { map, tap } from 'rxjs';
 
 @Component({
+  standalone: true,
   selector: 'app-round-selector',
   imports: [CommonModule],
   templateUrl: './round-selector.component.html',

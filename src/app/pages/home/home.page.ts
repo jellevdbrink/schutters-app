@@ -14,6 +14,7 @@ import { NewsService } from '../../services/news.service';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
+  standalone: true,
   selector: 'app-home',
   imports: [
     CommonModule,

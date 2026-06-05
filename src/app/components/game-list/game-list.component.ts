@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Game } from '../../models/game';
 
 @Component({
+  standalone: true,
   selector: 'app-game-list',
   imports: [CommonModule],
   templateUrl: './game-list.component.html',

@@ -11,6 +11,7 @@ export type GameFilters = {
 }
 
 @Component({
+  standalone: true,
   selector: 'app-filter-modal',
   imports: [ReactiveFormsModule],
   templateUrl: './filter-modal.component.html',

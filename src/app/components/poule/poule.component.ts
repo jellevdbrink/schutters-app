@@ -3,6 +3,7 @@ import { Component, input } from '@angular/core';
 import { Poule } from '../../models/ranking';
 
 @Component({
+  standalone: true,
   selector: 'app-poule',
   imports: [],
   templateUrl: './poule.component.html',

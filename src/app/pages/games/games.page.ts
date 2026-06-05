@@ -12,6 +12,7 @@ import { GameOverviewComponent } from './game-overview/game-overview.component';
 import { SettingsService } from '../../services/settings.service';
 
 @Component({
+  standalone: true,
   selector: 'app-games',
   imports: [
     CommonModule,

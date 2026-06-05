@@ -8,6 +8,7 @@ import { getKoRoundName } from '../../../../helpers';
 //import { SettingsService } from '../../../services/settings.service';
 
 @Component({
+  standalone: true,
   selector: 'app-game-overview',
   imports: [GameListComponent],
   templateUrl: './game-overview.component.html',

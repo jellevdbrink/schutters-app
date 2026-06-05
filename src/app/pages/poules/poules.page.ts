@@ -8,6 +8,7 @@ import { PouleComponent } from '../../components/poule/poule.component';
 import { SettingsService } from '../../services/settings.service';
 
 @Component({
+  standalone: true,
   selector: 'app-rounds',
   imports: [CommonModule, RoundSelectorComponent, PouleComponent],
   templateUrl: './poules.page.html',

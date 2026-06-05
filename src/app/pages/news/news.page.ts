@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NewsService } from '../../services/news.service';
 
 @Component({
+  standalone: true,
   selector: 'app-news',
   imports: [CommonModule],
   templateUrl: './news.page.html',

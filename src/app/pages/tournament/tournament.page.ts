@@ -8,6 +8,7 @@ import { Round } from '../../models/round';
 import { SettingsService } from '../../services/settings.service';
 
 @Component({
+  standalone: true,
   selector: 'app-tournament',
   imports: [CommonModule],
   templateUrl: './tournament.page.html',

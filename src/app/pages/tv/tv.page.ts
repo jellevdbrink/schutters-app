@@ -40,6 +40,7 @@ type Slide =
   | 'ss2';
 
 @Component({
+  standalone: true,
   selector: 'app-tv',
   imports: [CommonModule, NgbCarouselModule, PouleComponent, GameListComponent],
   templateUrl: './tv.page.html',
