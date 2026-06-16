@@ -9,7 +9,7 @@ import { environment } from '../environment/environment';
 import { HomePage } from './pages/home/home.page';
 import { NewsPage } from './pages/news/news.page';
 
-const REDIRECT_TO_WAIT_PAGE = false;
+const REDIRECT_TO_WAIT_PAGE = true;
 
 export const routes: Routes = [
   ...(environment.production && REDIRECT_TO_WAIT_PAGE
