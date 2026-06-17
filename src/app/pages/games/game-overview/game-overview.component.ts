@@ -29,11 +29,9 @@ export class GameOverviewComponent {
         takeUntilDestroyed(),
         filter((gs) => !!gs.length),
         tap((gameSeries) => {
-          const index = gameSeries.findIndex((games) =>
-            games.every(
-              (game) => game.score_1 === null && game.score_2 === null,
-            ),
-          );
+          // const index = this.findFirstUnplayedPlayingRound(gameSeries);
+          const index = this.findNextPlayingRound(gameSeries);
+
           if (index >= 0) {
             this.activePlayingRound.set(index + 1);
           }
@@ -49,6 +47,22 @@ export class GameOverviewComponent {
   protected selectedGames = computed(
     () => this.gameSeries()[this.activePlayingRound() - 1],
   );
+
+  private findFirstUnplayedPlayingRound(gameSeries: (Game | KOGame)[][]) {
+    return gameSeries.findIndex((games) =>
+      games.every(
+        (game) => game.score_1 === null && game.score_2 === null,
+      ),
+    );
+  }
+
+  private findNextPlayingRound(gameSeries: (Game | KOGame)[][]) {
+    const fiveMinutes = 5 * 60 * 1000;
+
+    return gameSeries.findIndex((games) => {
+      return games[0].start_date.getTime() + fiveMinutes >= Date.now(); }
+    );
+  }
 
   protected isUndefinedPlayingRound(roundNumber: number) {
     return this.gameSeries()[roundNumber - 1].some(

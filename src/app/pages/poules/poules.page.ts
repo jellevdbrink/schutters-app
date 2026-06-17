@@ -22,7 +22,7 @@ export class PoulesPage {
   protected activeRound = signal<Round | null>(this.settingsService.getActiveRound('poules'));
 
   constructor() {
-    effect(() => this.settingsService.setOrDeleteActiveRound('poules', this.activeRound()))
+    effect(() => this.settingsService.setOrDeleteActiveRound('poules', this.activeRound()));
   }
 
   protected poules$ = toObservable(this.activeRound).pipe(
