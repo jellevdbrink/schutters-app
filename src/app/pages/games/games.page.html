@@ -20,4 +20,26 @@
     ></app-game-overview>
   </div>
   }
+  @else {
+    <table class="table table-sm mt-1">
+      <thead>
+        <tr>
+          <th>Veld</th>
+          <th>Team 1</th>
+          <th>Team 2</th>
+          <th>Tijd</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider placeholder-glow">
+        @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
+          <tr>
+            <td><span class="placeholder col-3"></span></td>
+            <td><span class="placeholder col-10"></span></td>
+            <td><span class="placeholder col-10"></span></td>
+            <td><span class="placeholder col-6"></span></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
 </ng-container>

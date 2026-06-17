@@ -10,5 +10,36 @@
     @for (poule of poules$| async; track poule.field) {
     <app-poule [poule]="poule"></app-poule>
     }
+    @empty {
+      <div class="placeholder-glow">
+        <h4>Veld <span class="placeholder col-1"></span></h4>
+        <table class="table table-sm align-middle">
+          <thead>
+            <tr>
+              <th>Nr.</th>
+              <th>Namen</th>
+              <th>W</th>
+              <th>G</th>
+              <th>V</th>
+              <th>D</th>
+              <th>P</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (i of [1, 2, 3, 4, 5]; track $index) {
+              <tr>
+                <td><span class="placeholder col-9"></span></td>
+                <td style="width: 100%;"><span class="placeholder col-9"></span></td>
+                <td><span class="placeholder col-6"></span></td>
+                <td><span class="placeholder col-7"></span></td>
+                <td><span class="placeholder col-7"></span></td>
+                <td><span class="placeholder col-7"></span></td>
+                <td><span class="placeholder col-7"></span></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
   </div>
 </ng-container>

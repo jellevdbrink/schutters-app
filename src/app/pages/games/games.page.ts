@@ -2,7 +2,7 @@ import { Component, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoundService } from '../../services/round.service';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { switchMap, of, filter } from 'rxjs';
+import { switchMap, filter, startWith } from 'rxjs';
 import { RoundSelectorComponent } from '../../components/round-selector/round-selector.component';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -33,13 +33,13 @@ export class GamesPage {
   protected activeRound = signal<Round | null>(this.settingsService.getActiveRound('games'));
 
   constructor() {
-    effect(() => this.settingsService.setOrDeleteActiveRound('games', this.activeRound()))
+    effect(() => this.settingsService.setOrDeleteActiveRound('games', this.activeRound()));
   }
 
   protected games$ = toObservable(this.activeRound).pipe(
     filter(Boolean),
     switchMap((round) =>
-      this.roundService.getGames(round.id)
+      this.roundService.getGames(round.id).pipe(startWith(null))
     ),
   );
 

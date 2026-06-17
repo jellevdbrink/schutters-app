@@ -1,8 +1,8 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoundService } from '../../services/round.service';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
-import { switchMap, of, tap, map, filter, combineLatest } from 'rxjs';
+import { toObservable } from '@angular/core/rxjs-interop';
+import { switchMap, map, filter, combineLatest, startWith } from 'rxjs';
 import { RoundSelectorComponent } from '../../components/round-selector/round-selector.component';
 import { PouleComponent } from '../../components/poule/poule.component';
 import { SettingsService } from '../../services/settings.service';
@@ -27,12 +27,12 @@ export class PoulesPage {
 
   protected poules$ = toObservable(this.activeRound).pipe(
     filter(Boolean),
-    switchMap((round) => this.roundService.getPoules(round.id)),
+    switchMap((round) => this.roundService.getPoules(round.id).pipe(startWith(null))),
   );
 
   protected myPoule$ = combineLatest([this.poules$, toObservable(this.settingsService.myTeam)]).pipe(
     map(([poules, myTeam]) => {
-      return myTeam
+      return myTeam && poules
         ? poules.find((poule) =>
             poule.ranking.some(
               (rankingEntry) => rankingEntry.team.id == myTeam,
