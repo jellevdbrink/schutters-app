@@ -17,7 +17,6 @@ export enum StorageKeys {
 export class SettingsService {
   public myTeam = signal(this.getTeamSetting());
   public activeTournament = signal(this.getTournamentSetting());
-  public activeRound = signal(this.getActiveRound());
   public gameFilters = signal(this.getGameFilters());
 
   public numLoading = signal(0);
@@ -33,11 +32,6 @@ export class SettingsService {
       .subscribe((newActiveTournament) =>
         this.setItem(StorageKeys.TOURNAMENT, newActiveTournament),
       );
-    toObservable(this.activeRound)
-      .pipe(takeUntilDestroyed())
-      .subscribe((newActiveRound) =>
-        this.setOrDeleteItem(StorageKeys.ROUND, newActiveRound),
-      );
     toObservable(this.gameFilters)
       .pipe(takeUntilDestroyed())
       .subscribe((newGameFilters) =>
@@ -45,7 +39,7 @@ export class SettingsService {
       );
   }
 
-  private getItem(key: StorageKeys): string | null {
+  private getItem(key: string): string | null {
     return localStorage.getItem(key);
   }
 
@@ -54,11 +48,6 @@ export class SettingsService {
     //     this.getItem(StorageKeys.TOURNAMENT) ?? environment.defaultTournament
     //  );
     return +environment.defaultTournament;
-  }
-
-  private getActiveRound(): Round | null {
-    const activeRound = this.getItem(StorageKeys.ROUND);
-    return activeRound ? JSON.parse(activeRound) : null;
   }
 
   private getTeamSetting(): number | null {
@@ -71,12 +60,12 @@ export class SettingsService {
     return gameFilters ? JSON.parse(gameFilters) : null;
   }
 
-  private setItem(key: StorageKeys, value: string | number | object): void {
+  private setItem(key: string, value: string | number | object): void {
     localStorage.setItem(key, value.toString());
   }
 
   private setOrDeleteItem(
-    key: StorageKeys,
+    key: string,
     value: string | number | object | null,
   ) {
     if (value === null) {
@@ -89,8 +78,17 @@ export class SettingsService {
     }
   }
 
-  private removeItem(key: StorageKeys): void {
+  private removeItem(key: string): void {
     localStorage.removeItem(key);
+  }
+
+  public getActiveRound(pageName: string): Round | null {
+    const activeRound = this.getItem(`${StorageKeys.ROUND}-${pageName}`);
+    return activeRound ? JSON.parse(activeRound) : null;
+  }
+
+  public setOrDeleteActiveRound(pageName: string, newActiveRound: Round | null): void {
+    this.setOrDeleteItem(`${StorageKeys.ROUND}-${pageName}`, newActiveRound);
   }
 
   public clearAll(): void {

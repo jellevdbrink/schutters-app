@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoundService } from '../../services/round.service';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
@@ -6,6 +6,7 @@ import { switchMap, of, tap, map, filter, combineLatest } from 'rxjs';
 import { RoundSelectorComponent } from '../../components/round-selector/round-selector.component';
 import { PouleComponent } from '../../components/poule/poule.component';
 import { SettingsService } from '../../services/settings.service';
+import { Round } from '../../models/round';
 
 @Component({
   standalone: true,
@@ -18,9 +19,14 @@ export class PoulesPage {
   private roundService = inject(RoundService);
   private settingsService = inject(SettingsService);
 
-  protected poules$ = toObservable(this.settingsService.activeRound).pipe(
+  protected activeRound = signal<Round | null>(this.settingsService.getActiveRound('poules'));
+
+  constructor() {
+    effect(() => this.settingsService.setOrDeleteActiveRound('poules', this.activeRound()))
+  }
+
+  protected poules$ = toObservable(this.activeRound).pipe(
     filter(Boolean),
-    tap((round) => round.isKo && this.settingsService.activeRound.set(null)),
     switchMap((round) => this.roundService.getPoules(round.id)),
   );
 

@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoundService } from '../../services/round.service';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { switchMap, of } from 'rxjs';
+import { switchMap, of, filter } from 'rxjs';
 import { RoundSelectorComponent } from '../../components/round-selector/round-selector.component';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -10,6 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FilterModalComponent } from './filter-modal/filter-modal.component';
 import { GameOverviewComponent } from './game-overview/game-overview.component';
 import { SettingsService } from '../../services/settings.service';
+import { Round } from '../../models/round';
 
 @Component({
   standalone: true,
@@ -29,11 +30,16 @@ export class GamesPage {
   private modalService = inject(NgbModal);
 
   protected faFilter = faFilter;
-  protected activeRound = this.settingsService.activeRound;
+  protected activeRound = signal<Round | null>(this.settingsService.getActiveRound('games'));
+
+  constructor() {
+    effect(() => this.settingsService.setOrDeleteActiveRound('games', this.activeRound()))
+  }
 
   protected games$ = toObservable(this.activeRound).pipe(
+    filter(Boolean),
     switchMap((round) =>
-      round ? this.roundService.getGames(round.id) : of([]),
+      this.roundService.getGames(round.id)
     ),
   );
 
