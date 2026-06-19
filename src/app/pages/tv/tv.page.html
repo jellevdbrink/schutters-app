@@ -1,5 +1,5 @@
 <div class="d-flex flex-column h-100">
-  <div class="flex-grow-1">
+  <div class="flex-grow-1 px-3 pt-3">
     <ngb-carousel
       #infoCarousel
       [interval]="0"
@@ -24,6 +24,7 @@
               <app-game-list [games]="slide.games"></app-game-list>
             } @else {
               <app-game-list [games]="slide.games[0]"></app-game-list>
+              <br />
               <h1>{{ slide.secondRoundName }}</h1>
               <app-game-list [games]="slide.games[1]"></app-game-list>
             }
