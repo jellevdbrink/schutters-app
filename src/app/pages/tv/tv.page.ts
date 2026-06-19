@@ -16,16 +16,16 @@ import {
   NgbSlideEvent,
 } from '@ng-bootstrap/ng-bootstrap';
 import { RoundService } from '../../services/round.service';
-import { firstValueFrom, Observable } from 'rxjs';
+import { firstValueFrom, interval, Observable } from 'rxjs';
 import { Poule } from '../../models/ranking';
 import { Title } from '@angular/platform-browser';
 import { Game, KOGame } from '../../models/game';
 import { PouleComponent } from '../../components/poule/poule.component';
 import { GameListComponent } from '../../components/game-list/game-list.component';
 import { getKoRoundName } from '../../../helpers';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-type Slide =
-  | ({
+type Slide = {
       roundName: string;
     } & (
       | {
@@ -36,8 +36,7 @@ type Slide =
           isKo: true;
           games: Game[];
         }
-    ))
-  | 'ss2';
+    );
 
 @Component({
   standalone: true,
@@ -57,29 +56,38 @@ export class TvPage implements OnInit {
   );
   protected slides: Slide[] = [];
 
-  @ViewChild('carousel', { static: true }) protected carousel?: NgbCarousel;
+  @ViewChild('infoCarousel', { static: true }) protected infoCarousel?: NgbCarousel;
+  @ViewChild('sponsorCarousel', { static: true }) protected sponsorCarousel?: NgbCarousel;
   protected poules: Signal<Poule[][]> = signal([]);
 
+  constructor() {
+    const slideInterval = 10 * 1000;
+    interval(slideInterval).pipe(takeUntilDestroyed()).subscribe(() => {
+      this.infoCarousel?.next();
+      this.sponsorCarousel?.next();
+    })
+  }
+
   public ngOnInit(): void {
-    this.updateSlides();
+    this.updateInfoSlides();
     this.tournament$.subscribe((tournament) =>
       this.titleService.setTitle(tournament.name),
     );
   }
 
-  protected onSlide(slideEvent: NgbSlideEvent): void {
-    if (slideEvent.current === 'sponsor-slide') {
-      this.updateSlides();
+  protected onInfoSlid(slideEvent: NgbSlideEvent): void {
+    if (slideEvent.current === `info-slide-${this.slides.length - 1}`) {
+      this.updateInfoSlides();
     }
   }
 
-  private async updateSlides(): Promise<void> {
+  private async updateInfoSlides(): Promise<void> {
     let rounds = await firstValueFrom(this.roundService.getRounds());
     if (rounds.length > 1) {
       rounds = rounds.slice(-2);
     }
 
-    this.slides = [];
+    const newSlides: Slide[] = [];
     rounds.forEach(async (round, iteration) => {
       if (!round.isKo) {
         const poules = await firstValueFrom(
@@ -93,7 +101,7 @@ export class TvPage implements OnInit {
         }
 
         for (const pouleSlide of pouleSlides) {
-          this.slides.push({
+          newSlides.push({
             roundName: round.name,
             isKo: false,
             poules: pouleSlide,
@@ -110,21 +118,22 @@ export class TvPage implements OnInit {
         const roundNumber = gamesToShowIndex + 1;
 
         if (gamesToShowIndex !== 0) {
-          this.slides.push({
+          newSlides.push({
             roundName: `${round.name} - ${getKoRoundName(gameSeries[0].length, roundNumber - 1)}`,
             isKo: true,
             games: gameSeries.at(gamesToShowIndex - 1) ?? [], // Geen hele nette ?? []
           });
         }
 
-        this.slides.push({
+        newSlides.push({
           roundName: `${round.name} - ${getKoRoundName(gameSeries[0].length, roundNumber)}`,
           isKo: true,
           games: gameSeries.at(gamesToShowIndex) ?? [], // Geen hele nette ?? []
         });
       }
-      if (iteration == 0) {
-        this.slides.push('ss2');
+
+      if (iteration == rounds.length - 1) {
+        this.slides = newSlides;
       }
     });
   }
