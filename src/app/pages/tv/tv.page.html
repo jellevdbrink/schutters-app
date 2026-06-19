@@ -20,7 +20,13 @@
         </div>
         } @else {
           <div>
-            <app-game-list [games]="slide.games"></app-game-list>
+            @if (!slide.multiple) {
+              <app-game-list [games]="slide.games"></app-game-list>
+            } @else {
+              <app-game-list [games]="slide.games[0]"></app-game-list>
+              <h1>{{ slide.secondRoundName }}</h1>
+              <app-game-list [games]="slide.games[1]"></app-game-list>
+            }
           </div>
         }
       </ng-template>

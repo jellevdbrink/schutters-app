@@ -34,8 +34,15 @@ type Slide = {
         }
       | {
           isKo: true;
+          multiple: false;
           games: Game[];
         }
+      | {
+        isKo: true;
+        multiple: true;
+        secondRoundName: string;
+        games: Game[][];
+      }
     );
 
 @Component({
@@ -118,18 +125,36 @@ export class TvPage implements OnInit {
         const roundNumber = gamesToShowIndex + 1;
 
         if (gamesToShowIndex !== 0) {
+          if (gameSeries[gamesToShowIndex - 1].length <= 8) {
+            newSlides.push({
+              roundName: `${round.name} - ${getKoRoundName(gameSeries[0].length, roundNumber - 1)}`,
+              isKo: true,
+              multiple: true,
+              secondRoundName: `${round.name} - ${getKoRoundName(gameSeries[0].length, roundNumber)}`,
+              games: gameSeries.slice(gamesToShowIndex - 1, gamesToShowIndex + 1),
+            });
+          } else {
+            newSlides.push({
+              roundName: `${round.name} - ${getKoRoundName(gameSeries[0].length, roundNumber - 1)}`,
+              isKo: true,
+              multiple: false,
+              games: gameSeries[gamesToShowIndex - 1],
+            });
+            newSlides.push({
+              roundName: `${round.name} - ${getKoRoundName(gameSeries[0].length, roundNumber)}`,
+              isKo: true,
+              multiple: false,
+              games: gameSeries[gamesToShowIndex],
+            });
+          }
+        } else {
           newSlides.push({
-            roundName: `${round.name} - ${getKoRoundName(gameSeries[0].length, roundNumber - 1)}`,
+            roundName: `${round.name} - ${getKoRoundName(gameSeries[0].length, roundNumber)}`,
             isKo: true,
-            games: gameSeries.at(gamesToShowIndex - 1) ?? [], // Geen hele nette ?? []
+            multiple: false,
+            games: gameSeries[gamesToShowIndex],
           });
         }
-
-        newSlides.push({
-          roundName: `${round.name} - ${getKoRoundName(gameSeries[0].length, roundNumber)}`,
-          isKo: true,
-          games: gameSeries.at(gamesToShowIndex) ?? [], // Geen hele nette ?? []
-        });
       }
 
       if (iteration == rounds.length - 1) {
