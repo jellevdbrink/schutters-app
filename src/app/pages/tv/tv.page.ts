@@ -5,6 +5,7 @@ import {
   resource,
   signal,
   Signal,
+  TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,10 +14,11 @@ import { TournamentService } from '../../services/tournament.service';
 import {
   NgbCarousel,
   NgbCarouselModule,
+  NgbModal,
   NgbSlideEvent,
 } from '@ng-bootstrap/ng-bootstrap';
 import { RoundService } from '../../services/round.service';
-import { firstValueFrom, interval, Observable } from 'rxjs';
+import { firstValueFrom, interval } from 'rxjs';
 import { Poule } from '../../models/ranking';
 import { Title } from '@angular/platform-browser';
 import { Game, KOGame } from '../../models/game';
@@ -24,6 +26,7 @@ import { PouleComponent } from '../../components/poule/poule.component';
 import { GameListComponent } from '../../components/game-list/game-list.component';
 import { getKoRoundName } from '../../../helpers';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SponsorVideoComponent } from '../../components/sponsor-video/sponsor-video.component';
 
 type Slide = {
       roundName: string;
@@ -57,6 +60,7 @@ export class TvPage implements OnInit {
   private roundService = inject(RoundService);
   private tournamentService = inject(TournamentService);
   private titleService = inject(Title);
+  private modalService = inject(NgbModal);
 
   protected tournament$ = this.tournamentService.getTournament(
     this.settingsService.activeTournament(),
@@ -72,7 +76,12 @@ export class TvPage implements OnInit {
     interval(slideInterval).pipe(takeUntilDestroyed()).subscribe(() => {
       this.infoCarousel?.next();
       this.sponsorCarousel?.next();
-    })
+    });
+
+    const videoInterval = 30 * 60 * 1000;
+    interval(videoInterval).pipe(takeUntilDestroyed()).subscribe(() => {
+      this.modalService.open(SponsorVideoComponent, { fullscreen: true});
+    });
   }
 
   public ngOnInit(): void {
