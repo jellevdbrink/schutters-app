@@ -1,6 +1,6 @@
 export const environment = {
   api: 'https://admin.schutterstoernooi.nl/api',
-  defaultTournament: 48,
+  defaultTournament: 49,
   organisation: 1,
   production: true,
 };
